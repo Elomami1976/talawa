@@ -52,7 +52,7 @@ cp .env.example .env.local
 Fill in the values:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/telawa"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/telawa?sslmode=require"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NEXT_PUBLIC_APP_NAME="Telawa"
 ```
