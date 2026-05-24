@@ -1,6 +1,6 @@
-# QuranApp — Production-Ready Islamic Quran Platform
+# Telawa — Production-Ready Islamic Quran Platform
 
-A full-featured, production-ready Quran platform built with **Next.js 15**, **TypeScript**, **PostgreSQL + Prisma**, **Supabase Auth**, and **Tailwind CSS**.
+A full-featured, production-ready Quran platform built with **Next.js 15**, **TypeScript**, **PostgreSQL + Prisma**, and **Tailwind CSS**.
 
 ## Features
 
@@ -10,7 +10,7 @@ A full-featured, production-ready Quran platform built with **Next.js 15**, **Ty
 - 📚 Tafsir (Ibn Kathir, Maariful Quran)
 - 🔍 Full-text search in Arabic & English
 - 🕌 Prayer times via AlAdhan API (geolocation + 14 calculation methods)
-- 🔖 Bookmarks & reading progress (Supabase Auth required)
+- 🔖 Bookmarks & reading progress (stored locally in the browser)
 - 🌙 Dark / Light / System theme
 - 📱 Mobile-first responsive design with bottom nav
 - ⚡ Static generation + ISR for all 114 surah pages
@@ -25,8 +25,7 @@ A full-featured, production-ready Quran platform built with **Next.js 15**, **Ty
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS + shadcn/ui |
 | Database | PostgreSQL + Prisma ORM |
-| Auth | Supabase Auth |
-| State | Zustand (persisted) |
+| State | Zustand (persisted, localStorage) |
 | Animations | Framer Motion |
 | i18n | next-intl (8 locales) |
 
@@ -35,7 +34,7 @@ A full-featured, production-ready Quran platform built with **Next.js 15**, **Ty
 ### 1. Prerequisites
 
 - Node.js 20+
-- PostgreSQL 14+ (or Supabase project)
+- PostgreSQL 14+ (Neon, Supabase, or any Postgres provider)
 - npm or pnpm
 
 ### 2. Install dependencies
@@ -53,11 +52,9 @@ cp .env.example .env.local
 Fill in the values:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/quranapp"
-NEXT_PUBLIC_SUPABASE_URL="https://your-project.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
-NEXT_PUBLIC_SITE_URL="http://localhost:3000"
-NEXT_PUBLIC_APP_NAME="QuranApp"
+DATABASE_URL="postgresql://user:password@localhost:5432/telawa"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+NEXT_PUBLIC_APP_NAME="Telawa"
 ```
 
 ### 4. Set up the database
@@ -123,7 +120,6 @@ src/
 │   │   ├── prayer-times/
 │   │   ├── bookmarks/
 │   │   └── translations/
-│   ├── auth/               # Sign in / Sign up pages
 │   ├── layout.tsx          # Root layout
 │   ├── sitemap.ts          # Dynamic sitemap
 │   └── robots.ts           # robots.txt
@@ -131,7 +127,7 @@ src/
 │   ├── audio/              # AudioPlayerBar
 │   ├── layout/             # Navbar, MobileNav
 │   ├── prayer/             # PrayerTimesWidget
-│   ├── providers/          # Auth, Theme providers
+│   ├── providers/          # Theme provider
 │   ├── quran/              # AyahCard, SurahCard, Bismillah, etc.
 │   ├── search/             # SearchBar
 │   └── ui/                 # shadcn/ui components
@@ -143,7 +139,6 @@ src/
 │   ├── prisma.ts           # Prisma client singleton
 │   ├── rate-limit.ts       # In-memory rate limiter
 │   ├── seo.ts              # JSON-LD generators
-│   ├── supabase.ts         # Supabase client/server
 │   └── utils.ts            # Helper functions
 ├── store/
 │   ├── audio-store.ts      # Audio playback state
@@ -188,7 +183,6 @@ docker run -p 3000:3000 --env-file .env.local quranapp
 | `/api/ayahs/:surahId` | GET | Get ayahs for a surah |
 | `/api/search?q=` | GET | Full-text search |
 | `/api/prayer-times?lat=&lng=` | GET | Prayer times by coordinates |
-| `/api/bookmarks` | GET / POST / DELETE | Manage bookmarks (auth required) |
 | `/api/translations?ayahId=` | GET | Translations for an ayah |
 
 ## License
