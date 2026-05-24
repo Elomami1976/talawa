@@ -1,0 +1,262 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 158 64% 32%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 158 64% 32%;
+    --radius: 0.75rem;
+    --gold: 43 74% 49%;
+    --gold-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 158 64% 42%;
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 158 64% 42%;
+    --gold: 43 74% 60%;
+    --gold-foreground: 224 71.4% 4.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  html[lang="ar"] body,
+  [dir="rtl"] {
+    font-family: var(--font-noto-naskh), "Noto Naskh Arabic", serif;
+  }
+}
+
+@layer utilities {
+  .font-arabic {
+    font-family: var(--font-scheherazade), "Scheherazade New", "Noto Naskh Arabic", serif;
+  }
+
+  .font-arabic-ui {
+    font-family: var(--font-noto-naskh), "Noto Naskh Arabic", serif;
+  }
+
+  .text-arabic-sm { font-size: 1.1rem; line-height: 2rem; }
+  .text-arabic-base { font-size: 1.4rem; line-height: 2.5rem; }
+  .text-arabic-lg { font-size: 1.8rem; line-height: 3rem; }
+  .text-arabic-xl { font-size: 2.2rem; line-height: 3.5rem; }
+  .text-arabic-2xl { font-size: 2.8rem; line-height: 4rem; }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass {
+    @apply backdrop-blur-md bg-background/80 border border-border/50;
+  }
+
+  .gradient-green {
+    background: linear-gradient(135deg, hsl(158, 64%, 32%) 0%, hsl(158, 60%, 22%) 100%);
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(43, 74%, 49%) 0%, hsl(43, 70%, 38%) 100%);
+  }
+}
+
+/* Quran text specific styles */
+.quran-text {
+  font-family: var(--font-scheherazade), "Scheherazade New", serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: embed;
+}
+
+.bismillah {
+  font-family: var(--font-scheherazade), "Scheherazade New", serif;
+  font-size: 2rem;
+  text-align: center;
+  direction: rtl;
+}
+
+/* Audio player */
+.audio-progress {
+  @apply h-1 rounded-full bg-muted overflow-hidden;
+}
+
+.audio-progress-fill {
+  @apply h-full bg-primary transition-all duration-100;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection style */
+::selection {
+  background-color: hsl(158, 64%, 32%, 0.2);
+  color: inherit;
+}
+
+/* Focus visible */
+:focus-visible {
+  @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+}
+
+/* ============================================================
+   Initial loading screen — dark bg, glowing "ق" letter
+   ============================================================ */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at center, #0f1b17 0%, #07100d 60%, #04080a 100%);
+  opacity: 1;
+  transition: opacity 500ms ease-out, visibility 500ms ease-out;
+  will-change: opacity;
+  overflow: hidden;
+}
+
+.loading-screen--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-screen__glow {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(34, 197, 134, 0.28) 0%,
+    rgba(34, 197, 134, 0.08) 40%,
+    rgba(34, 197, 134, 0) 70%
+  );
+  filter: blur(40px);
+  animation: loading-pulse 2.4s ease-in-out infinite;
+}
+
+.loading-screen__logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  animation: loading-fade-up 800ms ease-out both;
+}
+
+.loading-screen__letter {
+  font-family: var(--font-scheherazade), "Scheherazade New", "Noto Naskh Arabic", serif;
+  font-size: 8rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #34d399;
+  text-shadow:
+    0 0 12px rgba(52, 211, 153, 0.65),
+    0 0 28px rgba(52, 211, 153, 0.45),
+    0 0 60px rgba(52, 211, 153, 0.25);
+  animation: loading-glow 1.8s ease-in-out infinite alternate;
+  user-select: none;
+}
+
+.loading-screen__ring {
+  position: absolute;
+  inset: -10px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(52, 211, 153, 0.35);
+  box-shadow:
+    0 0 24px rgba(52, 211, 153, 0.25),
+    inset 0 0 24px rgba(52, 211, 153, 0.15);
+  animation: loading-ring 2.4s ease-in-out infinite;
+}
+
+@keyframes loading-glow {
+  0% {
+    text-shadow:
+      0 0 8px rgba(52, 211, 153, 0.35),
+      0 0 18px rgba(52, 211, 153, 0.2),
+      0 0 36px rgba(52, 211, 153, 0.1);
+    transform: scale(1);
+  }
+  100% {
+    text-shadow:
+      0 0 18px rgba(52, 211, 153, 0.85),
+      0 0 40px rgba(52, 211, 153, 0.6),
+      0 0 80px rgba(52, 211, 153, 0.35);
+    transform: scale(1.04);
+  }
+}
+
+@keyframes loading-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes loading-ring {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes loading-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-screen__glow,
+  .loading-screen__letter,
+  .loading-screen__ring,
+  .loading-screen__logo {
+    animation: none;
+  }
+}

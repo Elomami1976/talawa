@@ -1,0 +1,102 @@
+// Prisma schema for Quran Platform
+// Stores Quran data only (no user accounts).
+// User settings, bookmarks, reading progress are stored client-side in localStorage.
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Surah {
+  id                 Int      @id
+  nameAr             String   @map("name_ar")
+  nameEn             String   @map("name_en")
+  nameTrans          String   @map("name_trans")
+  englishTranslation String   @map("english_translation")
+  revelationType     String   @map("revelation_type") // Meccan | Medinan
+  ayahCount          Int      @map("ayah_count")
+  chronologicalOrder Int      @map("chronological_order")
+  rukuCount          Int      @default(0) @map("ruku_count")
+  sajdaCount         Int      @default(0) @map("sajda_count")
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+
+  ayahs Ayah[]
+
+  @@map("surahs")
+}
+
+model Ayah {
+  id           Int                       @id @default(autoincrement())
+  surahId      Int                       @map("surah_id")
+  ayahNumber   Int                       @map("ayah_number")
+  ayahKey      String                    @unique @map("ayah_key") // e.g. "1:1"
+  juz          Int
+  hizb         Int
+  page         Int
+  textAr       String                    @map("text_ar") @db.Text
+  textSimple   String                    @map("text_simple") @db.Text
+  sajda        Boolean                   @default(false)
+  searchVector Unsupported("tsvector")?  @map("search_vector")
+  createdAt    DateTime                  @default(now()) @map("created_at")
+
+  surah        Surah         @relation(fields: [surahId], references: [id])
+  translations Translation[]
+  tafsirs      Tafsir[]
+
+  @@index([surahId])
+  @@index([juz])
+  @@index([page])
+  @@index([ayahKey])
+  @@map("ayahs")
+}
+
+model Translation {
+  id           Int                       @id @default(autoincrement())
+  ayahId       Int                       @map("ayah_id")
+  language     String                    // e.g. "en", "ar", "fr", "ur", "tr"
+  translator   String
+  text         String                    @db.Text
+  searchVector Unsupported("tsvector")?  @map("search_vector")
+  createdAt    DateTime                  @default(now()) @map("created_at")
+
+  ayah Ayah @relation(fields: [ayahId], references: [id], onDelete: Cascade)
+
+  @@unique([ayahId, language, translator])
+  @@index([language, translator])
+  @@map("translations")
+}
+
+model Tafsir {
+  id        Int      @id @default(autoincrement())
+  ayahId    Int      @map("ayah_id")
+  source    String   // e.g. "ibn-kathir", "jalalayn", "maarif"
+  language  String   @default("en")
+  text      String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  ayah Ayah @relation(fields: [ayahId], references: [id], onDelete: Cascade)
+
+  @@unique([ayahId, source])
+  @@index([source])
+  @@map("tafsirs")
+}
+
+model Reciter {
+  id           Int      @id @default(autoincrement())
+  identifier   String   @unique
+  name         String
+  style        String   // "Murattal" | "Muallim" | "Mujawwad"
+  language     String   @default("ar")
+  audioBaseUrl String   @map("audio_base_url")
+  format       String   @default("mp3") // mp3 | ogg
+  isDefault    Boolean  @default(false) @map("is_default")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("reciters")
+}
