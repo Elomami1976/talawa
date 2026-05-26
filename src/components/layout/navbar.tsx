@@ -17,6 +17,8 @@ import {
   Sun,
   Menu,
   X,
+  Compass,
+  BookHeart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -25,8 +27,10 @@ const navItems = [
   { href: "/", labelKey: "home", icon: null },
   { href: "/quran", labelKey: "quran", icon: BookOpen },
   { href: "/reciters", labelKey: "reciters", icon: Mic },
-  { href: "/search", labelKey: "search", icon: Search },
+  { href: "/duas", labelKey: "duas", icon: BookHeart },
   { href: "/prayer-times", labelKey: "prayerTimes", icon: Clock },
+  { href: "/qibla", labelKey: "qibla", icon: Compass },
+  { href: "/search", labelKey: "search", icon: Search },
   { href: "/bookmarks", labelKey: "bookmarks", icon: Bookmark },
   { href: "/settings", labelKey: "settings", icon: Settings },
 ];
@@ -51,7 +55,7 @@ export function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {navItems.slice(1, 6).map((item) => (
+          {navItems.slice(1, 7).map((item) => (
             <Link
               key={item.href}
               href={item.href}

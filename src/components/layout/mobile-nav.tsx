@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Search, Clock, Bookmark } from "lucide-react";
+import { Home, BookOpen, BookHeart, Compass, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const mobileNavItems = [
   { href: "/", icon: Home, label: "Home" },
   { href: "/quran", icon: BookOpen, label: "Quran" },
-  { href: "/search", icon: Search, label: "Search" },
-  { href: "/prayer-times", icon: Clock, label: "Prayer" },
+  { href: "/duas", icon: BookHeart, label: "Adhkar" },
+  { href: "/qibla", icon: Compass, label: "Qibla" },
   { href: "/bookmarks", icon: Bookmark, label: "Saved" },
 ];
 
