@@ -47,7 +47,7 @@ export default function PrayerTimesPage() {
   );
 
   const requestLocation = useCallback(() => {
-    const useIpFallback = async () => {
+    const fallbackToIp = async () => {
       try {
         const r = await fetch("https://ipapi.co/json/");
         if (!r.ok) throw new Error("IP lookup failed");
@@ -67,7 +67,7 @@ export default function PrayerTimesPage() {
     };
 
     if (!navigator.geolocation) {
-      void useIpFallback();
+      void fallbackToIp();
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -80,7 +80,7 @@ export default function PrayerTimesPage() {
       },
       () => {
         // Geolocation denied/unavailable — fall back to IP-based lookup
-        void useIpFallback();
+        void fallbackToIp();
       }
     );
   }, [fetchTimes]);

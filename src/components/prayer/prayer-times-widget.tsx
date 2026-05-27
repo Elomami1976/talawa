@@ -33,7 +33,7 @@ export function PrayerTimesWidget() {
   }, []);
 
   const requestLocation = useCallback(() => {
-    const useIpFallback = async () => {
+    const fallbackToIp = async () => {
       try {
         const r = await fetch("https://ipapi.co/json/");
         if (!r.ok) throw new Error("IP lookup failed");
@@ -52,7 +52,7 @@ export function PrayerTimesWidget() {
     };
 
     if (!navigator.geolocation) {
-      void useIpFallback();
+      void fallbackToIp();
       return;
     }
     navigator.geolocation.getCurrentPosition(
@@ -61,7 +61,7 @@ export function PrayerTimesWidget() {
         fetchTimes(pos.coords.latitude, pos.coords.longitude);
       },
       () => {
-        void useIpFallback();
+        void fallbackToIp();
       }
     );
   }, [fetchTimes]);

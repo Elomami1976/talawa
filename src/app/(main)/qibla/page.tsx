@@ -72,7 +72,7 @@ export default function QiblaPage() {
     setLoading(true);
     setError(null);
 
-    const useIpFallback = async () => {
+    const fallbackToIp = async () => {
       try {
         const r = await fetch("https://ipapi.co/json/");
         if (!r.ok) throw new Error("IP lookup failed");
@@ -94,7 +94,7 @@ export default function QiblaPage() {
     };
 
     if (!navigator.geolocation) {
-      void useIpFallback();
+      void fallbackToIp();
       return;
     }
 
@@ -106,7 +106,7 @@ export default function QiblaPage() {
         setLoading(false);
       },
       () => {
-        void useIpFallback();
+        void fallbackToIp();
       },
       { enableHighAccuracy: true, timeout: 10000 }
     );

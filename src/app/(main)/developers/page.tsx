@@ -517,12 +517,12 @@ console.log(data.nameEn); // "Al-Fatihah"`}
             </p>
             <p className="text-muted-foreground">
               An attribution link to{" "}
-              <a
+              <Link
                 href="/"
                 className="text-primary underline hover:no-underline"
               >
                 telawa.app
-              </a>{" "}
+              </Link>{" "}
               is appreciated but not required. Please make duʿāʾ for the team
               and contributors.
             </p>
