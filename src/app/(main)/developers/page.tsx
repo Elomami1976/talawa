@@ -454,7 +454,7 @@ export default function DevelopersPage() {
               dir="ltr"
               className="text-xs font-mono bg-muted/40 border rounded-md p-3 overflow-x-auto"
             >
-{`const res = await fetch("${baseUrl || "https://telawa.app"}/api/v1/surahs/1");
+{`const res = await fetch("${baseUrl || "https://telawa.org"}/api/v1/surahs/1");
 const { data } = await res.json();
 console.log(data.nameEn); // "Al-Fatihah"`}
             </pre>
@@ -521,7 +521,7 @@ console.log(data.nameEn); // "Al-Fatihah"`}
                 href="/"
                 className="text-primary underline hover:no-underline"
               >
-                telawa.app
+                telawa.org
               </Link>{" "}
               is appreciated but not required. Please make duʿāʾ for the team
               and contributors.
@@ -543,7 +543,7 @@ console.log(data.nameEn); // "Al-Fatihah"`}
               .
             </p>
             <p className="text-muted-foreground text-xs">
-              This API is built on the same database that powers telawa.app.
+              This API is built on the same database that powers telawa.org.
               Both will be maintained together for as long as we can.
             </p>
           </CardContent>

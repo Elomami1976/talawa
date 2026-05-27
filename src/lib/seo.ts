@@ -15,7 +15,7 @@ import type { Ayah, Surah } from "@/types";
 export const APP_URL = (
   process.env.NEXT_PUBLIC_APP_URL ||
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://telawa.app"
+  "https://telawa.org"
 ).replace(/\/$/, "");
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "telawa";

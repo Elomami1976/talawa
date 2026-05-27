@@ -26,7 +26,7 @@ export async function GET() {
         qibla: "/api/v1/qibla?lat={lat}&lng={lng}",
         search: "/api/v1/search?q={query}",
       },
-      contact: "https://telawa.app/contact",
+      contact: "https://telawa.org/contact",
     },
     { cache: CACHE_STATIC }
   );
