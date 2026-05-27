@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Copy, Share2, Bookmark, Play, Pause, Check } from "lucide-react";
+import { Copy, Share2, Bookmark, Play, Pause, Check, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,8 @@ import { useAudioStore } from "@/store/audio-store";
 import { useSettingsStore } from "@/store/settings-store";
 import { useBookmarksStore } from "@/store/bookmarks-store";
 import { useToast } from "@/hooks/use-toast";
-import { buildAudioUrl } from "@/lib/utils";
+import { buildAudioUrl, downloadAudioFile } from "@/lib/utils";
+import { DEFAULT_RECITERS } from "@/lib/constants";
 import type { Ayah, AyahWithDetails, Translation, Tafsir } from "@/types";
 
 interface AyahCardProps {
@@ -47,7 +48,7 @@ export function AyahCard({
   const [showTafsirText, setShowTafsirText] = useState(false);
   const sharingRef = useRef(false);
 
-  const { isPlaying, currentAyahKey, setCurrentAyah, setPlaying } = useAudioStore();
+  const { isPlaying, currentAyahKey, setCurrentAyah, setPlaying, reciterId } = useAudioStore();
   const { arabicFontSize, showTranslation, showTafsir } = useSettingsStore();
   const bookmarks = useBookmarksStore((s) => s.bookmarks);
   const toggleBookmark = useBookmarksStore((s) => s.toggle);
@@ -106,6 +107,20 @@ export function AyahCard({
     } else {
       setCurrentAyah(ayah.ayahKey, ayah.id);
       setPlaying(true);
+    }
+  };
+
+  const handleDownload = async () => {
+    const reciterEntry = DEFAULT_RECITERS.find((r) => r.identifier === reciterId);
+    const base = audioBaseUrl ?? reciterEntry?.audioBaseUrl ?? reciterId;
+    const format = reciterEntry?.audioFormat ?? "global";
+    const url = buildAudioUrl(base, ayah.id, ayah.surahId, ayah.ayahNumber, format);
+    const reciterSlug = (reciterEntry?.identifier ?? reciterId ?? "reciter").replace(/[^a-z0-9._-]/gi, "_");
+    try {
+      await downloadAudioFile(url, `quran-${ayah.surahId}-${ayah.ayahNumber}-${reciterSlug}.mp3`);
+      toast({ title: "Downloading…", description: `Surah ${ayah.surahId}, Ayah ${ayah.ayahNumber}` });
+    } catch {
+      toast({ title: "Download failed", description: "Please try again" });
     }
   };
 
@@ -207,6 +222,16 @@ export function AyahCard({
               aria-label="Share"
             >
               <Share2 className="h-3.5 w-3.5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={handleDownload}
+              aria-label="Download MP3"
+              title="Download MP3"
+            >
+              <Download className="h-3.5 w-3.5" />
             </Button>
           </div>
         )}

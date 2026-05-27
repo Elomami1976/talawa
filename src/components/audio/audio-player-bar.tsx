@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
-import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX, Repeat } from "lucide-react";
+import { Pause, Play, SkipBack, SkipForward, Volume2, VolumeX, Repeat, Download, X } from "lucide-react";
 import { useAudioStore } from "@/store/audio-store";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { formatTime, buildAudioUrl } from "@/lib/utils";
+import { formatTime, buildAudioUrl, downloadAudioFile } from "@/lib/utils";
 import { DEFAULT_RECITERS } from "@/lib/constants";
 
 export function AudioPlayerBar() {
@@ -29,6 +29,7 @@ export function AudioPlayerBar() {
     playPrev,
     playQueue,
     playQueueIndex,
+    reset,
   } = useAudioStore();
 
   const hasQueue = playQueue.length > 0 && playQueueIndex !== null;
@@ -123,6 +124,22 @@ export function AudioPlayerBar() {
   const handleVolumeChange = useCallback((value: number[]) => {
     setVolume(value[0]);
   }, [setVolume]);
+
+  const handleClose = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.removeAttribute("src");
+      audioRef.current.load();
+    }
+    reset();
+  }, [reset]);
+
+  const handleDownload = useCallback(() => {
+    if (!audioUrl || !currentAyahKey) return;
+    const [s, a] = currentAyahKey.split(":");
+    const reciterSlug = (reciterEntry?.identifier ?? "reciter").replace(/[^a-z0-9._-]/gi, "_");
+    downloadAudioFile(audioUrl, `quran-${s}-${a}-${reciterSlug}.mp3`);
+  }, [audioUrl, currentAyahKey, reciterEntry]);
 
   if (!currentAyahKey) return null;
 
@@ -224,6 +241,27 @@ export function AudioPlayerBar() {
                 />
               </div>
             </div>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleDownload}
+              disabled={!audioUrl}
+              aria-label="Download MP3"
+              title="Download MP3"
+            >
+              <Download className="h-4 w-4" />
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClose}
+              aria-label="Close player"
+              title="Close player"
+            >
+              <X className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </div>
