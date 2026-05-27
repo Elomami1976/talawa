@@ -22,7 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const surahId = parseInt(surah);
   const ayahNum = parseInt(ayah);
 
-  let found: Awaited<ReturnType<typeof prisma.ayah.findFirst>> = null;
+  let found: Awaited<
+    ReturnType<
+      typeof prisma.ayah.findFirst<{
+        include: { surah: true; translations: { take: 1 } };
+      }>
+    >
+  > = null;
   try {
     found = await prisma.ayah.findFirst({
       where: { surahId, ayahNumber: ayahNum },
@@ -68,7 +74,17 @@ export default async function AyahPage({ params }: Props) {
 
   if (isNaN(surahId) || isNaN(ayahNum)) notFound();
 
-  let found: Awaited<ReturnType<typeof prisma.ayah.findFirst>> = null;
+  let found: Awaited<
+    ReturnType<
+      typeof prisma.ayah.findFirst<{
+        include: {
+          surah: true;
+          translations: { where: { language: "en" }; take: 1 };
+          tafsirs: { take: 1 };
+        };
+      }>
+    >
+  > = null;
   try {
     found = await prisma.ayah.findFirst({
       where: { surahId, ayahNumber: ayahNum },
