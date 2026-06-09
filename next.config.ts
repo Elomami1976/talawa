@@ -18,6 +18,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Catch malformed legacy URL surfaced by Google Search Console (e.g. https://www.telawa.org/&)
+      { source: "/&", destination: "/", permanent: true },
+      { source: "/&/:path*", destination: "/", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { prisma } from "@/lib/prisma";
 import { RECITER_PROFILES } from "@/lib/reciters-data";
+import { duaCategories } from "@/lib/duas-data";
 import { APP_URL } from "@/lib/seo";
 
 const BASE_URL = APP_URL;
@@ -49,6 +50,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
+      url: `${BASE_URL}/duas`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${BASE_URL}/qibla`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/developers`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+    {
       url: `${BASE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: "yearly",
@@ -82,5 +101,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...surahRoutes, ...reciterRoutes];
+  const duaRoutes: MetadataRoute.Sitemap = duaCategories.map((c) => ({
+    url: `${BASE_URL}/duas/${c.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...surahRoutes, ...reciterRoutes, ...duaRoutes];
 }
