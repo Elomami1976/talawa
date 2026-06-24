@@ -20,16 +20,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Force canonical host: www.telawa.org -> telawa.org (301).
-      // Fixes Search Console "Alternative page with proper canonical tag" and
-      // "Page with redirect" on the www variant by collapsing both hostnames
-      // into a single canonical origin at the framework level.
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.telawa.org" }],
-        destination: "https://telawa.org/:path*",
-        permanent: true,
-      },
+      // NOTE: do NOT add a www<->apex redirect here. Vercel handles the
+      // canonical host at the platform level (see Project > Domains).
+      // Adding a redirect in Next.js will fight Vercel's redirect and cause
+      // ERR_TOO_MANY_REDIRECTS.
+      //
       // Catch malformed legacy URLs surfaced by Google Search Console
       // (e.g. https://www.telawa.org/&, https://www.telawa.org/$ )
       { source: "/&", destination: "/", permanent: true },
