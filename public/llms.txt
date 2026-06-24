@@ -1,0 +1,43 @@
+# telawa.org
+
+> telawa.org (تلاوة) is a free, open Quran platform that lets Muslims and learners read, listen to, and reflect on the Holy Quran. The site offers the complete Quran in Arabic with translations in 10+ languages, in-depth tafsir (exegesis), high-quality audio recitations from leading reciters, prayer times, qibla direction, daily duas from Hisn al-Muslim, hadith authenticity lookup via the Dorar encyclopedia, and personal bookmarks.
+
+The canonical origin is https://telawa.org (no `www`). Content is bilingual (Arabic/English primary; additional UI locales available). All Quran text and metadata are sourced from public Islamic-text APIs and stored in a PostgreSQL database; tafsir, translations and recitations are credited to their original authors. The codebase is open and hosted on GitHub.
+
+## Quran
+
+- [Quran index](https://telawa.org/quran): Browse all 114 surahs with Arabic names, English names, revelation period, and verse counts.
+- [Surah pages](https://telawa.org/surah/1): One page per surah (IDs 1–114), each with full Arabic text, transliteration, English translation, tafsir, and audio recitation. Example: `/surah/1` (Al-Fatihah), `/surah/2` (Al-Baqarah), `/surah/36` (Ya-Sin), `/surah/112` (Al-Ikhlas).
+- [Search](https://telawa.org/search): Full-text search across the Quran in Arabic and translations (UI only, noindex).
+
+## Reciters
+
+- [Reciters index](https://telawa.org/reciters): List of all featured Quran reciters.
+- [Reciter profiles](https://telawa.org/reciters/mishary-rashid-alafasy): Biographical pages for each reciter in English and Arabic. Examples: `/reciters/mishary-rashid-alafasy`, `/reciters/yasser-al-dosari`, `/reciters/maher-al-muaiqly`, `/reciters/saad-al-ghamdi`, `/reciters/mahmoud-al-husary`, `/reciters/mohamed-siddiq-al-minshawi`, `/reciters/abdul-basit`, `/reciters/ali-al-hudhaify`, `/reciters/abu-baker-ash-shaatree`.
+
+## Duas & Adhkar
+
+- [Duas index](https://telawa.org/duas): All chapters of Hisn al-Muslim (حصن المسلم) — morning and evening adhkar, prayer-related supplications, and daily duas from the Sunnah.
+- [Dua category pages](https://telawa.org/duas/1): One page per category with Arabic text, repetition count, and source attribution.
+
+## Tools
+
+- [Prayer times](https://telawa.org/prayer-times): Geolocation-based daily prayer times (Fajr, Dhuhr, Asr, Maghrib, Isha) with multiple calculation methods.
+- [Qibla direction](https://telawa.org/qibla): Compass pointing toward the Kaaba in Makkah from the user's location.
+- [Hadith authenticity check](https://telawa.org/hadith): Look up the grading (sahih, hasan, da'if, mawdu') of any hadith via the Dorar al-Sunniyah encyclopedia.
+- [Books](https://telawa.org/books): Curated list of recommended classical Islamic books.
+
+## Site
+
+- [About](https://telawa.org/about): Mission and background.
+- [Contact](https://telawa.org/contact): Contact form and email (info@telawa.org).
+- [Developers](https://telawa.org/developers): Public API documentation for the Quran/translations/tafsir endpoints.
+- [Privacy policy](https://telawa.org/privacy): Privacy and data-handling policy.
+
+## Crawl guidance
+
+- Canonical host: `https://telawa.org` — the `www.` variant 301-redirects to the apex.
+- Sitemap: https://telawa.org/sitemap.xml
+- Robots: https://telawa.org/robots.txt
+- Not for indexing: `/api/*`, `/_next/*`, `/search`, `/settings`, `/bookmarks`, `/ayah/*` (ayah-level pages canonicalize to their parent surah).
+- License: Quran Arabic text is public domain. Translations, tafsir, and reciter audio are © their respective authors; please credit original sources when quoting.

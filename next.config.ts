@@ -20,9 +20,24 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Catch malformed legacy URL surfaced by Google Search Console (e.g. https://www.telawa.org/&)
+      // Force canonical host: www.telawa.org -> telawa.org (301).
+      // Fixes Search Console "Alternative page with proper canonical tag" and
+      // "Page with redirect" on the www variant by collapsing both hostnames
+      // into a single canonical origin at the framework level.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.telawa.org" }],
+        destination: "https://telawa.org/:path*",
+        permanent: true,
+      },
+      // Catch malformed legacy URLs surfaced by Google Search Console
+      // (e.g. https://www.telawa.org/&, https://www.telawa.org/$ )
       { source: "/&", destination: "/", permanent: true },
       { source: "/&/:path*", destination: "/", permanent: true },
+      { source: "/$", destination: "/", permanent: true },
+      { source: "/$/:path*", destination: "/", permanent: true },
+      // Legacy URLs from a previous site (e.g. /singer-55.html).
+      { source: "/singer-:id.html", destination: "/reciters", permanent: true },
     ];
   },
   async headers() {
@@ -50,6 +65,42 @@ const nextConfig: NextConfig = {
         source: "/api/:path*",
         headers: [
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
+        // Static build assets (JS chunks, fonts, images) should not show up
+        // in Google's index. Search Console flags them as "Crawled - currently
+        // not indexed", which is noise. Tell crawlers explicitly: noindex.
+        source: "/_next/static/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
+      {
+        // PWA / browser metadata files: must remain crawlable (so browsers
+        // and search engines can discover them) but should not appear as
+        // search results in their own right.
+        source: "/manifest.json",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
+      {
+        source: "/favicon.ico",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
+      {
+        source: "/apple-icon.png",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
+      {
+        source: "/icon.png",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex" },
         ],
       },
     ];
