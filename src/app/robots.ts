@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       // Default rule applied to every crawler (Googlebot, Bingbot, AI bots, etc.)
       {
         userAgent: "*",
-        allow: ["/", "/llms.txt"],
+        allow: ["/", "/llms.txt", "/api/mcp"],
         disallow: [
           "/api/",
           "/bookmarks",

@@ -32,6 +32,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - [About](https://telawa.org/about): Mission and background.
 - [Contact](https://telawa.org/contact): Contact form and email (info@telawa.org).
 - [Developers](https://telawa.org/developers): Public API documentation for the Quran/translations/tafsir endpoints.
+- [MCP server](https://telawa.org/mcp): Model Context Protocol server for AI assistants. Hosted endpoint: `https://telawa.org/api/mcp` (no API key). Tools: list_surahs, get_surah, get_ayah, random_ayah, search_quran, list_reciters, list_duas, get_dua_category, qibla.
 - [Privacy policy](https://telawa.org/privacy): Privacy and data-handling policy.
 
 ## Crawl guidance
