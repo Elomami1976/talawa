@@ -14,8 +14,12 @@ export default function robots(): MetadataRoute.Robots {
           "/api/",
           "/bookmarks",
           "/settings",
-          "/search",
-          "/ayah/", // ayah pages canonicalize to /surah/[id]; keep crawlers off them
+          // NOTE: do NOT disallow /search or /ayah/. Those routes already ship a
+          // noindex meta tag (search/layout.tsx, ayah page). Blocking them in
+          // robots.txt would stop Google from reading the noindex/canonical, so
+          // they'd linger as "Crawled - currently not indexed" / "Duplicate".
+          // Leaving them crawlable lets Google honor noindex and the canonical
+          // back to /surah/[id], then drop them cleanly.
           "/_next/static/", // build assets, not user-facing content
           "/*?*", // strip query-string variants (utm_*, ?q=, ?lang=, etc.)
         ],
