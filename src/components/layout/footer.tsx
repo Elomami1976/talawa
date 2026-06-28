@@ -59,6 +59,9 @@ export function Footer() {
           <Link href="/developers" className="hover:text-primary transition-colors">
             API
           </Link>
+          <Link href="/mcp" className="hover:text-primary transition-colors">
+            MCP
+          </Link>
         </nav>
       </div>
     </footer>
