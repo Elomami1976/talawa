@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
     return result(id, {
       protocolVersion: PROTOCOL_VERSION,
       capabilities: { tools: {} },
-      serverInfo: { name: "telawa", version: "1.0.0" },
+      serverInfo: { name: "Telawa MCP", version: "1.0.0" },
     });
   }
   if (method === "tools/list") {
@@ -171,9 +171,16 @@ export async function POST(request: NextRequest) {
 
 export function GET() {
   return Response.json({
-    name: "telawa MCP",
-    transport: "streamable-http (JSON-RPC 2.0 over POST)",
+    name: "Telawa MCP",
+    description:
+      "Access the Holy Quran, reciters, duas, and Qibla through the Model Context Protocol.",
+    version: "1.0.0",
+    homepage: BASE,
+    documentation: `${BASE}/mcp`,
+    transport: "streamable-http",
+    protocol: "JSON-RPC 2.0 over POST",
     url: `${BASE}/api/mcp`,
+    auth: "none",
     tools: TOOLS.map((t) => t.name),
   });
 }
