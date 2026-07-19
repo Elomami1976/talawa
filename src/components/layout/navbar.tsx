@@ -21,8 +21,15 @@ import {
   BookHeart,
   BookMarked,
   BookCheck,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -37,6 +44,22 @@ const navItems = [
   { href: "/search", labelKey: "search", icon: Search },
   { href: "/bookmarks", labelKey: "bookmarks", icon: Bookmark },
   { href: "/settings", labelKey: "settings", icon: Settings },
+];
+
+// Primary content links shown directly in the desktop header.
+const primaryNavItems = [
+  { href: "/quran", labelKey: "quran", icon: BookOpen },
+  { href: "/reciters", labelKey: "reciters", icon: Mic },
+  { href: "/duas", labelKey: "duas", icon: BookHeart },
+  { href: "/books", labelKey: "books", icon: BookMarked },
+  { href: "/hadith", labelKey: "hadith", icon: BookCheck },
+  { href: "/search", labelKey: "search", icon: Search },
+];
+
+// Utility links grouped under the "Tools" dropdown.
+const toolNavItems = [
+  { href: "/prayer-times", labelKey: "prayerTimes", icon: Clock },
+  { href: "/qibla", labelKey: "qibla", icon: Compass },
 ];
 
 export function Navbar() {
@@ -59,7 +82,7 @@ export function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {navItems.slice(1, 9).map((item) => (
+          {primaryNavItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -73,6 +96,40 @@ export function Navbar() {
               {t(item.labelKey as keyof ReturnType<typeof t>)}
             </Link>
           ))}
+
+          {/* Tools dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={cn(
+                  "flex items-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors outline-none",
+                  toolNavItems.some(
+                    (item) =>
+                      pathname === item.href ||
+                      pathname.startsWith(item.href + "/")
+                  )
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                )}
+              >
+                {t("tools" as keyof ReturnType<typeof t>)}
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {toolNavItems.map((item) => (
+                <DropdownMenuItem key={item.href} asChild>
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    {item.icon && <item.icon className="h-4 w-4" />}
+                    {t(item.labelKey as keyof ReturnType<typeof t>)}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         {/* Right actions */}

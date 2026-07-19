@@ -25,7 +25,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - [Prayer times](https://telawa.org/prayer-times): Geolocation-based daily prayer times (Fajr, Dhuhr, Asr, Maghrib, Isha) with multiple calculation methods.
 - [Qibla direction](https://telawa.org/qibla): Compass pointing toward the Kaaba in Makkah from the user's location.
 - [Hadith authenticity check](https://telawa.org/hadith): Look up the grading (sahih, hasan, da'if, mawdu') of any hadith via the Dorar al-Sunniyah encyclopedia.
-- [Books](https://telawa.org/books): Curated list of recommended classical Islamic books.
+- [Books](https://telawa.org/books): Curated catalog of classical Islamic books hosted on archive.org. Titles include Tafsir Ibn Kathir, Riyad al-Salihin (النووي), Sahih al-Bukhari, Sahih Muslim, Fath al-Bari (ابن حجر), Sharh Riyad al-Salihin (العثيمين), and Zad al-Ma'ad (ابن القيّم). Each entry links to per-volume PDFs and the archive.org details page.
 
 ## Site
 
@@ -34,6 +34,11 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - [Developers](https://telawa.org/developers): Free public REST API (`/api/v1`), no API key required. Endpoints: surahs, ayahs (incl. random), translations, tafsirs, reciters, duas, qibla, search.
 - [MCP server](https://telawa.org/mcp): Model Context Protocol server for AI assistants. Hosted endpoint: `https://telawa.org/api/mcp` (no API key). Tools: list_surahs, get_surah, get_ayah, random_ayah, search_quran, list_reciters, list_duas, qibla.
 - [Privacy policy](https://telawa.org/privacy): Privacy and data-handling policy.
+
+## Social
+
+- TikTok: https://www.tiktok.com/@telawaorg
+- YouTube: https://www.youtube.com/@telawaorg
 
 ## Crawl guidance
 
