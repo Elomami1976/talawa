@@ -7,13 +7,13 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 ## Quran
 
 - [Quran index](https://telawa.org/quran): Browse all 114 surahs with Arabic names, English names, revelation period, and verse counts.
-- [Surah pages](https://telawa.org/surah/1): One page per surah (IDs 1–114), each with full Arabic text, transliteration, English translation, tafsir, and audio recitation. Example: `/surah/1` (Al-Fatihah), `/surah/2` (Al-Baqarah), `/surah/36` (Ya-Sin), `/surah/112` (Al-Ikhlas).
+- [Surah pages](https://telawa.org/surah/1): One page per surah (IDs 1–114), each with full Arabic text, transliteration, English translation, tafsir, and audio recitation, plus a summary of the surah (meaning of its name, verse count, Meccan/Medinan, order of revelation, ruku and sajdah counts) and a short FAQ. Example: `/surah/1` (Al-Fatihah), `/surah/2` (Al-Baqarah), `/surah/36` (Ya-Sin), `/surah/112` (Al-Ikhlas).
 - [Search](https://telawa.org/search): Full-text search across the Quran in Arabic and translations (UI only, noindex).
 
 ## Reciters
 
 - [Reciters index](https://telawa.org/reciters): List of all featured Quran reciters.
-- [Reciter profiles](https://telawa.org/reciters/mishary-rashid-alafasy): Biographical pages for each reciter in English and Arabic. Examples: `/reciters/mishary-rashid-alafasy`, `/reciters/yasser-al-dosari`, `/reciters/maher-al-muaiqly`, `/reciters/saad-al-ghamdi`, `/reciters/mahmoud-al-husary`, `/reciters/mohamed-siddiq-al-minshawi`, `/reciters/abdul-basit`, `/reciters/ali-al-hudhaify`, `/reciters/abu-baker-ash-shaatree`.
+- [Reciter profiles](https://telawa.org/reciters/mishary-rashid-alafasy): One page per reciter, with a side-by-side English and Arabic biography (birth, country, recitation style) and links to listen to their recitation. All ten slugs: `/reciters/yasser-al-dosari`, `/reciters/maher-al-muaiqly`, `/reciters/saad-al-ghamdi`, `/reciters/abu-baker-ash-shaatree`, `/reciters/mohamed-siddiq-al-minshawi`, `/reciters/mishary-rashid-alafasy`, `/reciters/mahmoud-al-husary`, `/reciters/abdul-basit-abdul-samad`, `/reciters/abdul-rahman-al-sudais`, `/reciters/ali-al-hudhaify`.
 
 ## Duas & Adhkar
 
@@ -25,7 +25,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - [Prayer times](https://telawa.org/prayer-times): Geolocation-based daily prayer times (Fajr, Dhuhr, Asr, Maghrib, Isha) with multiple calculation methods.
 - [Qibla direction](https://telawa.org/qibla): Compass pointing toward the Kaaba in Makkah from the user's location.
 - [Hadith authenticity check](https://telawa.org/hadith): Look up the grading (sahih, hasan, da'if, mawdu') of any hadith via the Dorar al-Sunniyah encyclopedia.
-- [Books](https://telawa.org/books): Curated catalog of classical Islamic books hosted on archive.org. Titles include Tafsir Ibn Kathir, Riyad al-Salihin (النووي), Sahih al-Bukhari, Sahih Muslim, Fath al-Bari (ابن حجر), Sharh Riyad al-Salihin (العثيمين), and Zad al-Ma'ad (ابن القيّم). Each entry links to per-volume PDFs and the archive.org details page.
+- [Books](https://telawa.org/books): Curated catalog of eight classical Islamic books (أمهات الكتب الإسلامية), free to download as PDF and hosted on archive.org: Sahih al-Bukhari (صحيح البخاري), Sahih Muslim (صحيح مسلم), Al-Muwatta (الموطأ), Musnad Imam Ahmad (مسند الإمام أحمد), Al-Seerah Al-Nabawiyyah by Ibn Hisham (السيرة النبوية لابن هشام), Fath al-Bari (فتح الباري — ابن حجر), Sharh Riyad al-Salihin (شرح رياض الصالحين — العثيمين), and Zad al-Ma'ad (زاد المعاد — ابن القيّم). Each entry links to per-volume PDFs and the archive.org details page. Page content is primarily Arabic.
 
 ## Site
 
@@ -42,7 +42,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 
 ## Crawl guidance
 
-- Canonical host: `https://telawa.org` — the `www.` variant 301-redirects to the apex.
+- Canonical host: `https://telawa.org` — the `www.` variant permanently redirects (HTTP 308) to the apex.
 - Sitemap: https://telawa.org/sitemap.xml
 - Robots: https://telawa.org/robots.txt
 - Not for indexing: `/api/*`, `/_next/*`, `/search`, `/settings`, `/bookmarks`, `/ayah/*` (ayah-level pages canonicalize to their parent surah).
