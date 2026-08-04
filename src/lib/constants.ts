@@ -164,6 +164,30 @@ export const JUZ_PAGE_MAP: Record<number, number> = {
   26: 502, 27: 522, 28: 542, 29: 562, 30: 582,
 };
 
+/**
+ * The surahs people actually search for, in rough order of search demand.
+ * Used to build internal links (e.g. from reciter profiles) on statically
+ * rendered pages, so it deliberately carries its own names rather than
+ * hitting the database.
+ */
+export const POPULAR_SURAHS: Array<{
+  id: number;
+  nameEn: string;
+  nameAr: string;
+}> = [
+  { id: 1, nameEn: "Al-Fatihah", nameAr: "الفاتحة" },
+  { id: 2, nameEn: "Al-Baqarah", nameAr: "البقرة" },
+  { id: 18, nameEn: "Al-Kahf", nameAr: "الكهف" },
+  { id: 36, nameEn: "Ya-Sin", nameAr: "يس" },
+  { id: 55, nameEn: "Ar-Rahman", nameAr: "الرحمن" },
+  { id: 56, nameEn: "Al-Waqi'ah", nameAr: "الواقعة" },
+  { id: 67, nameEn: "Al-Mulk", nameAr: "الملك" },
+  { id: 78, nameEn: "An-Naba", nameAr: "النبأ" },
+  { id: 112, nameEn: "Al-Ikhlas", nameAr: "الإخلاص" },
+  { id: 113, nameEn: "Al-Falaq", nameAr: "الفلق" },
+  { id: 114, nameEn: "An-Nas", nameAr: "الناس" },
+];
+
 export const QURAN_CLOUD_API = "https://api.alquran.cloud/v1";
 export const FAWAZ_API = "https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist";
 export const ALADHAN_API = "https://api.aladhan.com/v1";

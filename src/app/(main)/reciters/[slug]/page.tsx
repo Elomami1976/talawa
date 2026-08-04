@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { RECITER_PROFILES, getReciterBySlug } from "@/lib/reciters-data";
+import { POPULAR_SURAHS } from "@/lib/constants";
 import { buildCanonicalUrl, generateBreadcrumbJsonLd } from "@/lib/seo";
 
 /**
@@ -26,8 +27,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     return { title: "Reciter not found" };
   }
 
-  const title = `${reciter.nameEn} (${reciter.nameAr}) — Quran Reciter Biography`;
-  const description = `${reciter.taglineEn} ${reciter.bornEn}. Read the biography of ${reciter.nameEn} in English and Arabic.`;
+  // Search intent for a reciter's name is overwhelmingly "let me hear them",
+  // not "let me read a CV". The title leads with the recitation and keeps the
+  // Arabic name out of it so the useful words survive Google's ~60 char cut.
+  const title = `${reciter.nameEn} — Full Quran Recitation & Biography`;
+  const description = `Listen to ${reciter.nameEn} (${reciter.nameAr}) recite all 114 surahs of the Holy Quran, free and with no sign-up. ${reciter.taglineEn}`;
   const url = buildCanonicalUrl(`/reciters/${reciter.slug}`);
 
   return {
@@ -62,6 +66,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 function jsonLd(reciter: ReturnType<typeof getReciterBySlug>) {
   if (!reciter) return null;
+
+  // `bornEn` reads like "Born 1980, Riyadh" — pull the year and the place out
+  // so Google gets real birthDate/birthPlace properties instead of prose.
+  const year = reciter.bornEn.match(/\b(\d{4})\b/)?.[1];
+  const place = reciter.bornEn.split(",").slice(1).join(",").trim();
+
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -71,6 +81,23 @@ function jsonLd(reciter: ReturnType<typeof getReciterBySlug>) {
     jobTitle: "Quran Reciter",
     description: reciter.taglineEn,
     url: buildCanonicalUrl(`/reciters/${reciter.slug}`),
+    ...(year ? { birthDate: year } : {}),
+    ...(place
+      ? { birthPlace: { "@type": "Place", name: place } }
+      : {}),
+    knowsAbout: [
+      "Quran recitation",
+      "Tajweed",
+      reciter.styleEn,
+      "Islamic studies",
+    ],
+    // The bio paragraphs are the substance of the page; exposing them as the
+    // main entity helps Google understand this is an authored profile rather
+    // than a thin directory stub.
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": buildCanonicalUrl(`/reciters/${reciter.slug}`),
+    },
   };
 }
 
@@ -175,6 +202,48 @@ export default async function ReciterPage({ params }: Params) {
           </div>
         </article>
       </div>
+
+      {/* Listen — the reason most people searched this name in the first
+          place. Also seeds internal links into the surah pages. */}
+      <section className="mt-10 rounded-2xl border bg-card p-6 md:p-8 shadow-sm">
+        <h2 className="text-xl md:text-2xl font-bold mb-2">
+          Listen to {reciter.nameEn}
+        </h2>
+        <p className="text-sm text-muted-foreground mb-6">
+          Play any of the 114 surahs recited by {reciter.nameEn} — free, with
+          Arabic text, transliteration and translation alongside the audio.
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-6">
+          {POPULAR_SURAHS.map((s) => (
+            <Link
+              key={s.id}
+              href={`/surah/${s.id}`}
+              className="rounded-lg border px-3 py-2 text-sm hover:border-primary hover:text-primary transition-colors flex items-center justify-between gap-2"
+            >
+              <span>Surah {s.nameEn}</span>
+              <span className="font-arabic-ui text-muted-foreground" dir="rtl" lang="ar">
+                {s.nameAr}
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/quran"
+            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
+          >
+            Browse all 114 surahs →
+          </Link>
+          <Link
+            href="/reciters"
+            className="rounded-lg border px-4 py-2 text-sm font-medium hover:border-primary hover:text-primary transition-colors"
+          >
+            Compare other reciters
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

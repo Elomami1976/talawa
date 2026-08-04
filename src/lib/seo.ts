@@ -36,7 +36,9 @@ export function generateSurahJsonLd(surah: Surah) {
   return {
     "@context": "https://schema.org",
     "@type": "Book",
-    name: `Surah ${surah.nameEn} - ${surah.nameTrans}`,
+    // `nameTrans` duplicates `nameEn` in the dataset; `englishTranslation`
+    // holds the actual meaning ("The Opening"), which is what belongs here.
+    name: `Surah ${surah.nameEn} - ${surah.englishTranslation}`,
     inLanguage: ["ar", "en"],
     about: {
       "@type": "Thing",

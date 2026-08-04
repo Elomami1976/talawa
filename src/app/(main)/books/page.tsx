@@ -7,17 +7,63 @@ import { buildCanonicalUrl } from "@/lib/seo";
 import { BookMarked, Download, ExternalLink, FileText } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "تحميل الكتب الإسلامية | Islamic Books PDF — تلاوة",
+  title: "تحميل أمهات الكتب الإسلامية PDF مجاناً",
   description:
-    "تحميل أمّهات الكتب الإسلامية بصيغة PDF: صحيح البخاري، صحيح مسلم، الموطّأ، مسند الإمام أحمد، والسيرة النبوية لابن هشام — روابط مباشرة من أرشيف الإنترنت.",
+    "تحميل أمّهات الكتب الإسلامية بصيغة PDF مجاناً وبروابط مباشرة: صحيح البخاري، صحيح مسلم، الموطّأ، مسند الإمام أحمد، فتح الباري، زاد المعاد، والسيرة النبوية لابن هشام — بدون تسجيل.",
+  keywords: [
+    "أمهات الكتب الإسلامية pdf",
+    "كتب إسلامية pdf",
+    "كتب دينية pdf",
+    "كتب الحديث pdf",
+    "تحميل كتب اسلامية",
+    "Islamic books PDF",
+    "free Islamic books download",
+  ],
   alternates: { canonical: buildCanonicalUrl("/books") },
   openGraph: {
-    title: "تحميل الكتب الإسلامية بصيغة PDF — تلاوة",
+    title: "تحميل أمهات الكتب الإسلامية بصيغة PDF مجاناً — تلاوة",
     description:
-      "أمّهات كتب الحديث والسيرة النبوية بصيغة PDF: البخاري، مسلم، الموطّأ، مسند أحمد، وسيرة ابن هشام.",
+      "أمّهات كتب الحديث والسيرة النبوية بصيغة PDF: البخاري، مسلم، الموطّأ، مسند أحمد، فتح الباري، وسيرة ابن هشام.",
     url: buildCanonicalUrl("/books"),
   },
 };
+
+/**
+ * ItemList of Book entities. The Search Console "Search appearance" report is
+ * completely empty for this site, meaning zero rich results — this is the page
+ * best placed to earn one, since it already ranks around position 3.
+ */
+function booksJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "أمهات الكتب الإسلامية PDF",
+    description:
+      "قائمة أمّهات الكتب الإسلامية المتاحة للتحميل المجاني بصيغة PDF.",
+    numberOfItems: ISLAMIC_BOOKS.length,
+    itemListElement: ISLAMIC_BOOKS.map((book, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Book",
+        name: book.titleAr,
+        alternateName: book.titleEn,
+        author: {
+          "@type": "Person",
+          name: book.authorAr,
+          alternateName: book.authorEn,
+        },
+        description: book.descriptionAr,
+        genre: book.categoryAr,
+        inLanguage: "ar",
+        bookFormat: "https://schema.org/EBook",
+        isAccessibleForFree: true,
+        url: book.detailsUrl,
+        ...(book.pdfUrl ? { encodingFormat: "application/pdf" } : {}),
+      },
+    })),
+  };
+}
 
 export default function BooksPage() {
   return (
@@ -25,16 +71,21 @@ export default function BooksPage() {
       className="mx-auto max-w-5xl px-4 py-8 pb-24 md:pb-12"
       dir="rtl"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(booksJsonLd()) }}
+      />
+
       <div className="mb-8 text-center">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 mb-3">
           <BookMarked className="h-7 w-7 text-primary" />
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
-          تحميل الكتب الإسلامية
+          تحميل أمهات الكتب الإسلامية PDF
         </h1>
         <p className="text-muted-foreground text-sm max-w-2xl mx-auto">
-          أمّهات كتب الحديث والسيرة النبوية لأئمة المسلمين، متاحة للتحميل
-          المباشر بصيغة PDF من{" "}
+          {ISLAMIC_BOOKS.length} من أمّهات كتب الحديث والسيرة النبوية والفقه
+          لأئمة المسلمين، متاحة للتحميل المباشر بصيغة PDF مجاناً وبدون تسجيل، من{" "}
           <a
             href="https://archive.org"
             target="_blank"
