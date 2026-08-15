@@ -1,10 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, BookOpen, Search, Clock, Star } from "lucide-react";
+import { ArrowRight, BookOpen, Search, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { PrayerTimesWidget } from "@/components/prayer/prayer-times-widget";
 import { generateMetaTags, buildCanonicalUrl } from "@/lib/seo";
+import { plainArabicName } from "@/lib/utils";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = generateMetaTags({
@@ -37,7 +38,7 @@ async function getDailyAyah() {
     return prisma.ayah.findFirst({
       skip,
       include: {
-        surah: { select: { nameEn: true, nameTrans: true, id: true } },
+        surah: { select: { nameEn: true, id: true } },
         translations: {
           where: { language: "en", translator: "en.sahih" },
           take: 1,
@@ -95,6 +96,50 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Ayah of the Day — the centerpiece. Deliberately NOT a Card: it sits
+          on its own ground with a wider measure and much larger Arabic so it
+          reads as scripture rather than as another tile in the grid. */}
+      {dailyAyah && (
+        <section className="border-y bg-card">
+          <div className="mx-auto max-w-3xl px-4 py-12 sm:py-16 text-center">
+            <div className="flex items-center justify-center gap-2 mb-8">
+              <span className="h-px w-8 bg-gold/40" />
+              <span className="text-[11px] uppercase tracking-[0.2em] text-gold">
+                Ayah of the Day
+              </span>
+              <span className="h-px w-8 bg-gold/40" />
+            </div>
+
+            {/* Sized with the project's Arabic type scale, not Tailwind's
+                generic text-* sizes: those bake in a Latin line-height
+                (text-5xl is line-height:1), which makes the harakat of one
+                line collide with the next. Each text-arabic-* size carries
+                its own Arabic-appropriate leading. */}
+            <p
+              className="font-arabic text-arabic-base sm:text-arabic-lg md:text-arabic-xl text-foreground mb-8"
+              dir="rtl"
+              lang="ar"
+            >
+              {dailyAyah.textAr}
+            </p>
+
+            {dailyAyah.translations[0] && (
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
+                &ldquo;{dailyAyah.translations[0].text}&rdquo;
+              </p>
+            )}
+
+            <Link
+              href={`/surah/${dailyAyah.surah.id}#ayah-${dailyAyah.ayahNumber}`}
+              className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline underline-offset-4"
+            >
+              Surah {dailyAyah.surah.nameEn} · Verse {dailyAyah.ayahNumber}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </section>
+      )}
+
       <div className="mx-auto w-full max-w-5xl px-4 flex flex-col gap-10">
         {/* Prayer Times */}
         <section>
@@ -104,43 +149,6 @@ export default async function HomePage() {
           </h2>
           <PrayerTimesWidget />
         </section>
-
-        {/* Daily Ayah */}
-        {dailyAyah && (
-          <section>
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
-              <Star className="h-4 w-4 text-gold" />
-              Ayah of the Day
-            </h2>
-            <Card className="border-primary/20 bg-primary/5">
-              <CardContent className="pt-6">
-                <p
-                  className="text-2xl sm:text-3xl font-arabic text-primary leading-loose text-right mb-4"
-                  dir="rtl"
-                  lang="ar"
-                >
-                  {dailyAyah.textAr}
-                </p>
-                {dailyAyah.translations[0] && (
-                  <p className="text-muted-foreground text-sm italic mb-3">
-                    &ldquo;{dailyAyah.translations[0].text}&rdquo;
-                  </p>
-                )}
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">
-                    {dailyAyah.surah.nameEn} ({dailyAyah.surah.nameTrans}) — Verse{" "}
-                    {dailyAyah.ayahNumber}
-                  </span>
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link href={`/surah/${dailyAyah.surah.id}#ayah-${dailyAyah.ayahNumber}`}>
-                      Read More <ArrowRight className="ml-1 h-3 w-3" />
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-        )}
 
         {/* Featured Surahs */}
         <section>
@@ -163,15 +171,15 @@ export default async function HomePage() {
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm">{surah.nameEn}</p>
                       <p className="text-xs text-muted-foreground">
-                        {surah.nameTrans} · {surah.ayahCount} verses
+                        {surah.englishTranslation} · {surah.ayahCount} verses
                       </p>
                     </div>
                     <p
-                      className="text-lg font-arabic text-primary shrink-0"
+                      className="font-arabic text-arabic-sm leading-none text-primary shrink-0"
                       dir="rtl"
                       lang="ar"
                     >
-                      {surah.nameAr}
+                      {plainArabicName(surah.nameAr)}
                     </p>
                   </div>
                 </Card>
@@ -180,34 +188,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* Features */}
-        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              icon: BookOpen,
-              title: "114 Surahs",
-              desc: "Complete Quran with Uthmani script",
-            },
-            {
-              icon: Search,
-              title: "Smart Search",
-              desc: "Search in Arabic text or translations",
-            },
-            {
-              icon: Clock,
-              title: "Prayer Times",
-              desc: "Accurate times based on your location",
-            },
-          ].map(({ icon: Icon, title, desc }) => (
-            <Card key={title} className="p-4 text-center">
-              <div className="flex h-10 w-10 mx-auto mb-3 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Icon className="h-5 w-5" />
-              </div>
-              <p className="font-semibold text-sm mb-1">{title}</p>
-              <p className="text-xs text-muted-foreground">{desc}</p>
-            </Card>
-          ))}
-        </section>
       </div>
     </main>
   );

@@ -7,6 +7,7 @@ import {
   generateBreadcrumbJsonLd,
   buildCanonicalUrl,
 } from "@/lib/seo";
+import { plainArabicName } from "@/lib/utils";
 import { SurahReader } from "@/components/quran/surah-reader";
 import { Badge } from "@/components/ui/badge";
 import type { AyahWithDetails } from "@/types";
@@ -60,20 +61,6 @@ type SurahMeta = {
   rukuCount: number;
   sajdaCount: number;
 };
-
-/**
- * `nameAr` arrives fully vowelized and prefixed with the word "سورة"
- * (e.g. "سُورَةُ ٱلْفَاتِحَةِ"). Nobody types harakat into a search box, and
- * repeating "Surah" in a title that already says it reads badly — so strip
- * both for display and metadata.
- */
-function plainArabicName(nameAr: string): string {
-  return nameAr
-    .replace(/[ً-ٰٟۖ-ۭـ]/g, "") // harakat + tatweel
-    .replace(/ٱ/g, "ا") // alef wasla -> plain alef
-    .replace(/^\s*سورة\s*/, "")
-    .trim();
-}
 
 /**
  * Questions people actually type ("surah hashr in which para", "how many

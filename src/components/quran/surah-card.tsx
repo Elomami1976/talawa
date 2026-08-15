@@ -34,7 +34,9 @@ export function SurahCard({ surah, className }: SurahCardProps) {
               </Badge>
             </div>
             <p className="text-xs text-muted-foreground mt-0.5">
-              {surah.nameTrans} · {surah.ayahCount} verses
+              {/* englishTranslation, not nameTrans: nameTrans duplicates
+                  nameEn, so this line read "Al-Faatiha · Al-Faatiha". */}
+              {surah.englishTranslation} · {surah.ayahCount} verses
             </p>
           </div>
 

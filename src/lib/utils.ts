@@ -178,6 +178,24 @@ export function getRevelationLabel(type: string): string {
 }
 
 /**
+ * `Surah.nameAr` arrives fully vowelized and prefixed with the word "سورة"
+ * (e.g. "سُورَةُ ٱلْفَاتِحَةِ"). Strip the harakat, the tatweel and the prefix
+ * for anywhere the bare name is wanted — titles, meta descriptions, compact
+ * list rows — since nobody types harakat into a search box and repeating
+ * "Surah" after the English word reads badly.
+ *
+ * Keep the raw `nameAr` where the vowelized form is the point (the large
+ * calligraphic display on the surah page).
+ */
+export function plainArabicName(nameAr: string): string {
+  return nameAr
+    .replace(/[ً-ٰٟۖ-ۭـ]/g, "") // harakat + tatweel
+    .replace(/ٱ/g, "ا") // alef wasla -> plain alef
+    .replace(/^\s*سورة\s*/, "")
+    .trim();
+}
+
+/**
  * Sleep utility for import scripts
  */
 export function sleep(ms: number): Promise<void> {
