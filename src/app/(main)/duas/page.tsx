@@ -6,9 +6,9 @@ import { buildCanonicalUrl } from "@/lib/seo";
 import { BookHeart, ChevronLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "الأذكار والأدعية — تلاوة",
+  title: "الأذكار والأدعية - تلاوة",
   description:
-    "أذكار وأدعية المسلم اليومية من كتاب حصن المسلم، الواردة في الكتاب والسنة الصحيحة — أذكار الصباح والمساء، النوم، الصلاة، السفر وغيرها.",
+    "أذكار وأدعية المسلم اليومية من كتاب حصن المسلم، الواردة في الكتاب والسنة الصحيحة: أذكار الصباح والمساء، النوم، الصلاة، السفر وغيرها.",
   alternates: { canonical: buildCanonicalUrl("/duas") },
 };
 
@@ -23,7 +23,7 @@ export default function DuasPage() {
           الأذكار والأدعية
         </h1>
         <p className="text-muted-foreground text-sm max-w-xl mx-auto">
-          من كتاب <strong>حصن المسلم</strong> للشيخ سعيد بن علي القحطاني — أذكار
+          من كتاب <strong>حصن المسلم</strong> للشيخ سعيد بن علي القحطاني: أذكار
           وأدعية مأثورة عن النبي صلى الله عليه وسلم من الكتاب والسنة الصحيحة.
         </p>
       </div>

@@ -79,7 +79,7 @@ export default function PrayerTimesPage() {
         fetchTimes(latitude, longitude);
       },
       () => {
-        // Geolocation denied/unavailable — fall back to IP-based lookup
+        // Geolocation denied/unavailable - fall back to IP-based lookup
         void fallbackToIp();
       }
     );

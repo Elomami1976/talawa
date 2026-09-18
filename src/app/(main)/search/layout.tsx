@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildCanonicalUrl } from "@/lib/seo";
 
-// User-tool page (interactive search UI). Not a content page \u2014 noindex to
+// User-tool page (interactive search UI). Not a content page - noindex to
 // avoid "Crawled - currently not indexed" / "Duplicate" reports in GSC.
 export const metadata: Metadata = {
   title: "Search the Quran",

@@ -1,6 +1,6 @@
 /**
  * Static catalog of classical Islamic books available as PDF.
- * Files are hosted on Internet Archive (archive.org) — public-domain works.
+ * Files are hosted on Internet Archive (archive.org) - public-domain works.
  */
 
 export interface IslamicBook {
@@ -28,8 +28,8 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "sahih-al-bukhari",
     titleEn: "Sahih Al-Bukhari",
     titleAr: "صحيح البخاري",
-    authorEn: "Imam Muhammad ibn Ismail Al-Bukhari (194–256 AH)",
-    authorAr: "الإمام محمد بن إسماعيل البخاري (194–256هـ)",
+    authorEn: "Imam Muhammad ibn Ismail Al-Bukhari (194-256 AH)",
+    authorAr: "الإمام محمد بن إسماعيل البخاري (194-256هـ)",
     descriptionEn:
       "The most authentic book of hadith after the Qur'an, containing the rigorously verified sayings, actions and approvals of the Prophet Muhammad ﷺ, compiled by Imam Al-Bukhari over sixteen years.",
     descriptionAr:
@@ -44,8 +44,8 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "sahih-muslim",
     titleEn: "Sahih Muslim",
     titleAr: "صحيح مسلم",
-    authorEn: "Imam Muslim ibn Al-Hajjaj An-Nisaburi (206–261 AH)",
-    authorAr: "الإمام مسلم بن الحجاج النيسابوري (206–261هـ)",
+    authorEn: "Imam Muslim ibn Al-Hajjaj An-Nisaburi (206-261 AH)",
+    authorAr: "الإمام مسلم بن الحجاج النيسابوري (206-261هـ)",
     descriptionEn:
       "The second of the two most authentic hadith collections (the Sahihayn). Renowned for its meticulous arrangement and the strict authentication of its chains of transmission.",
     descriptionAr:
@@ -61,8 +61,8 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "muwatta-malik",
     titleEn: "Al-Muwatta",
     titleAr: "الموطّأ",
-    authorEn: "Imam Malik ibn Anas (93–179 AH)",
-    authorAr: "الإمام مالك بن أنس (93–179هـ)",
+    authorEn: "Imam Malik ibn Anas (93-179 AH)",
+    authorAr: "الإمام مالك بن أنس (93-179هـ)",
     descriptionEn:
       "The earliest surviving written collection of hadith and Islamic jurisprudence, compiled by Imam Malik, the founder of the Maliki school, over forty years in the city of Madinah.",
     descriptionAr:
@@ -85,10 +85,10 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "musnad-ahmad",
     titleEn: "Musnad Imam Ahmad",
     titleAr: "مسند الإمام أحمد بن حنبل",
-    authorEn: "Imam Ahmad ibn Hanbal (164–241 AH)",
-    authorAr: "الإمام أحمد بن حنبل (164–241هـ)",
+    authorEn: "Imam Ahmad ibn Hanbal (164-241 AH)",
+    authorAr: "الإمام أحمد بن حنبل (164-241هـ)",
     descriptionEn:
-      "The largest classical musnad collection of hadith, containing over 27,000 narrations arranged by the Companion who related them — compiled by the imam of Ahl al-Sunnah, Imam Ahmad.",
+      "The largest classical musnad collection of hadith, containing over 27,000 narrations arranged by the Companion who related them - compiled by the imam of Ahl al-Sunnah, Imam Ahmad.",
     descriptionAr:
       "أعظم كتب المسانيد على الإطلاق، يحوي أكثر من سبعة وعشرين ألف حديث مرتّبة على مسانيد الصحابة، جمعه إمام أهل السنة الإمام أحمد بن حنبل رحمه الله.",
     categoryEn: "Hadith",
@@ -118,8 +118,8 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "fath-al-bari",
     titleEn: "Fath Al-Bari (Commentary on Sahih Al-Bukhari)",
     titleAr: "فتح الباري بشرح صحيح البخاري",
-    authorEn: "Al-Hafiz Ibn Hajar Al-Asqalani (773–852 AH)",
-    authorAr: "الحافظ ابن حجر العسقلاني (773–852هـ)",
+    authorEn: "Al-Hafiz Ibn Hajar Al-Asqalani (773-852 AH)",
+    authorAr: "الحافظ ابن حجر العسقلاني (773-852هـ)",
     descriptionEn:
       "The greatest and most comprehensive commentary on Sahih Al-Bukhari, authored by the Shaykh al-Islam Ibn Hajar Al-Asqalani over more than twenty-five years. An indispensable reference in hadith sciences, jurisprudence and Arabic linguistics.",
     descriptionAr:
@@ -148,8 +148,8 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "sharh-riyad-al-salihin",
     titleEn: "Sharh Riyad Al-Salihin",
     titleAr: "شرح رياض الصالحين",
-    authorEn: "Shaykh Muhammad ibn Salih Al-Uthaymeen (1929–2001 CE)",
-    authorAr: "الشيخ محمد بن صالح العثيمين (1347–1421هـ)",
+    authorEn: "Shaykh Muhammad ibn Salih Al-Uthaymeen (1929-2001 CE)",
+    authorAr: "الشيخ محمد بن صالح العثيمين (1347-1421هـ)",
     descriptionEn:
       "A clear and beneficial explanation of Imam Al-Nawawi's famous Riyad Al-Salihin by the renowned scholar Shaykh Ibn Al-Uthaymeen, combining sound creed, jurisprudence and refined manners in an accessible style.",
     descriptionAr:
@@ -170,8 +170,8 @@ export const ISLAMIC_BOOKS: IslamicBook[] = [
     slug: "zad-al-maad",
     titleEn: "Zad Al-Ma'ad",
     titleAr: "زاد المعاد في هدي خير العباد",
-    authorEn: "Imam Ibn Qayyim Al-Jawziyyah (691–751 AH)",
-    authorAr: "الإمام ابن قيّم الجوزية (691–751هـ)",
+    authorEn: "Imam Ibn Qayyim Al-Jawziyyah (691-751 AH)",
+    authorAr: "الإمام ابن قيّم الجوزية (691-751هـ)",
     descriptionEn:
       "A masterpiece on the guidance (hady) of the Prophet Muhammad ﷺ in worship, dealings, medicine and conduct, written by Imam Ibn Al-Qayyim. It blends seerah, fiqh and prophetic wisdom into one profound work.",
     descriptionAr:

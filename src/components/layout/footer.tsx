@@ -35,6 +35,9 @@ export function Footer() {
           {/* Navigation */}
           <nav className="flex flex-col gap-3">
             <h3 className="font-semibold text-foreground">روابط</h3>
+            <Link href="/support" className="text-muted-foreground hover:text-primary transition-colors">
+              دعم الموقع
+            </Link>
             <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
               من نحن
             </Link>
@@ -80,7 +83,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 border-t pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} تلاوة — جميع الحقوق محفوظة.
+          © {new Date().getFullYear()} تلاوة. جميع الحقوق محفوظة.
         </div>
       </div>
     </footer>

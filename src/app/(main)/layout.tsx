@@ -3,8 +3,6 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 import { Footer } from "@/components/layout/footer";
 import { AudioPlayerBar } from "@/components/audio/audio-player-bar";
 
-export const dynamic = "force-dynamic";
-
 export default function MainLayout({
   children,
 }: {

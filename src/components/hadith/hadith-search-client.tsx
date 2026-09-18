@@ -183,7 +183,7 @@ export function HadithSearchClient() {
                         المصدر:
                       </span>{" "}
                       {h.book}
-                      {h.numberOrPage ? ` — ${h.numberOrPage}` : ""}
+                      {h.numberOrPage ? ` - ${h.numberOrPage}` : ""}
                     </span>
                   )}
                 </div>
@@ -226,7 +226,7 @@ export function HadithSearchClient() {
             </Card>
           ))}
           <p className="text-xs text-muted-foreground text-center pt-2">
-            المصدر: الموسوعة الحديثية —{" "}
+            المصدر: الموسوعة الحديثية{" "}
             <a
               href="https://dorar.net"
               target="_blank"

@@ -7,7 +7,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 ## Quran
 
 - [Quran index](https://telawa.org/quran): Browse all 114 surahs with Arabic names, English names, revelation period, and verse counts.
-- [Surah pages](https://telawa.org/surah/1): One page per surah (IDs 1–114), each with full Arabic text, transliteration, English translation, tafsir, and audio recitation, plus a summary of the surah (meaning of its name, verse count, Meccan/Medinan, order of revelation, ruku and sajdah counts) and a short FAQ. Example: `/surah/1` (Al-Fatihah), `/surah/2` (Al-Baqarah), `/surah/36` (Ya-Sin), `/surah/112` (Al-Ikhlas).
+- [Surah pages](https://telawa.org/surah/1): One page per surah (IDs 1-114), each with full Arabic text, transliteration, English translation, tafsir, and audio recitation, plus a summary of the surah (meaning of its name, verse count, Meccan/Medinan, order of revelation, ruku and sajdah counts) and a short FAQ. Example: `/surah/1` (Al-Fatihah), `/surah/2` (Al-Baqarah), `/surah/36` (Ya-Sin), `/surah/112` (Al-Ikhlas).
 - [Search](https://telawa.org/search): Full-text search across the Quran in Arabic and translations (UI only, noindex).
 
 ## Reciters
@@ -17,7 +17,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 
 ## Duas & Adhkar
 
-- [Duas index](https://telawa.org/duas): All chapters of Hisn al-Muslim (حصن المسلم) — morning and evening adhkar, prayer-related supplications, and daily duas from the Sunnah.
+- [Duas index](https://telawa.org/duas): All chapters of Hisn al-Muslim (حصن المسلم): morning and evening adhkar, prayer-related supplications, and daily duas from the Sunnah.
 - [Dua category pages](https://telawa.org/duas/1): One page per category with Arabic text, repetition count, and source attribution.
 
 ## Tools
@@ -25,7 +25,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - [Prayer times](https://telawa.org/prayer-times): Geolocation-based daily prayer times (Fajr, Dhuhr, Asr, Maghrib, Isha) with multiple calculation methods.
 - [Qibla direction](https://telawa.org/qibla): Compass pointing toward the Kaaba in Makkah from the user's location.
 - [Hadith authenticity check](https://telawa.org/hadith): Look up the grading (sahih, hasan, da'if, mawdu') of any hadith via the Dorar al-Sunniyah encyclopedia.
-- [Books](https://telawa.org/books): Curated catalog of eight classical Islamic books (أمهات الكتب الإسلامية), free to download as PDF and hosted on archive.org: Sahih al-Bukhari (صحيح البخاري), Sahih Muslim (صحيح مسلم), Al-Muwatta (الموطأ), Musnad Imam Ahmad (مسند الإمام أحمد), Al-Seerah Al-Nabawiyyah by Ibn Hisham (السيرة النبوية لابن هشام), Fath al-Bari (فتح الباري — ابن حجر), Sharh Riyad al-Salihin (شرح رياض الصالحين — العثيمين), and Zad al-Ma'ad (زاد المعاد — ابن القيّم). Each entry links to per-volume PDFs and the archive.org details page. Page content is primarily Arabic.
+- [Books](https://telawa.org/books): Curated catalog of eight classical Islamic books (أمهات الكتب الإسلامية), free to download as PDF and hosted on archive.org: Sahih al-Bukhari (صحيح البخاري), Sahih Muslim (صحيح مسلم), Al-Muwatta (الموطأ), Musnad Imam Ahmad (مسند الإمام أحمد), Al-Seerah Al-Nabawiyyah by Ibn Hisham (السيرة النبوية لابن هشام), Fath al-Bari (فتح الباري، ابن حجر), Sharh Riyad al-Salihin (شرح رياض الصالحين، العثيمين), and Zad al-Ma'ad (زاد المعاد، ابن القيّم). Each entry links to per-volume PDFs and the archive.org details page. Page content is primarily Arabic.
 
 ## Site
 
@@ -33,6 +33,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - [Contact](https://telawa.org/contact): Contact form and email (info@telawa.org).
 - [Developers](https://telawa.org/developers): Free public REST API (`/api/v1`), no API key required. Endpoints: surahs, ayahs (incl. random), translations, tafsirs, reciters, duas, qibla, search.
 - [MCP server](https://telawa.org/mcp): Model Context Protocol server for AI assistants. Hosted endpoint: `https://telawa.org/api/mcp` (no API key). Tools: list_surahs, get_surah, get_ayah, random_ayah, search_quran, list_reciters, list_duas, qibla.
+- [Support](https://telawa.org/support): Why the project needs donations (hosting, database, audio bandwidth, maintenance) and how to contribute. The site is free, ad-free, and collects no personal data. Page content is Arabic.
 - [Privacy policy](https://telawa.org/privacy): Privacy and data-handling policy.
 
 ## Social
@@ -42,7 +43,7 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 
 ## Crawl guidance
 
-- Canonical host: `https://telawa.org` — the `www.` variant permanently redirects (HTTP 308) to the apex.
+- Canonical host: `https://telawa.org`. The `www.` variant permanently redirects (HTTP 308) to the apex.
 - Sitemap: https://telawa.org/sitemap.xml
 - Robots: https://telawa.org/robots.txt
 - Not for indexing: `/api/*`, `/_next/*`, `/search`, `/settings`, `/bookmarks`, `/ayah/*` (ayah-level pages canonicalize to their parent surah).

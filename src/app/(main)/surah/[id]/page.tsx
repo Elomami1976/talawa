@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
@@ -12,6 +13,11 @@ import { SurahReader } from "@/components/quran/surah-reader";
 import { Badge } from "@/components/ui/badge";
 import type { AyahWithDetails } from "@/types";
 
+// The root layout calls getLocale(), which opts the whole app into dynamic
+// rendering; only force-static overrides it. Safe here: there is no locale
+// switcher and no [locale] segment, so every request already renders in the
+// default locale. Without this the page hits the DB on every request.
+export const dynamic = "force-static";
 export const revalidate = 86400;
 
 type Params = { params: Promise<{ id: string }> };
@@ -43,8 +49,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   // are Arabic or transliterated spellings ("sourat abasa", "سورة عبس"), and
   // matching the searcher's own script is what earns the click.
   return generateMetaTags({
-    title: `Surah ${surah.nameEn} (${plainArabicName(surah.nameAr)}) — Read & Listen`,
-    description: `Read Surah ${surah.nameEn} — "${surah.englishTranslation}" — in Arabic with English translation and transliteration, and listen to audio recitation by leading reciters. ${surah.ayahCount} verses · ${surah.revelationType} · chapter ${surahId} of 114.`,
+    title: `Surah ${surah.nameEn} (${plainArabicName(surah.nameAr)}) - Read & Listen`,
+    description: `Read Surah ${surah.nameEn}, "${surah.englishTranslation}", in Arabic with English translation and transliteration, and listen to audio recitation by leading reciters. ${surah.ayahCount} verses · ${surah.revelationType} · chapter ${surahId} of 114.`,
     canonical: buildCanonicalUrl(`/surah/${surahId}`),
   });
 }
@@ -188,12 +194,11 @@ export default async function SurahPage({ params }: Params) {
           </div>
         </div>
 
-        {/* Reader (client) — translation + reciter live */}
+        {/* Reader (client) - translation + reciter live */}
         <SurahReader surahId={surah.id} ayahs={ayahs as unknown as AyahWithDetails[]} />
 
         {/* Server-rendered facts + FAQ. The reader above is a client component,
-            so without this the crawlable body of the page is close to empty —
-            which is why these pages sit around position 40-70. */}
+            so without this the crawlable body of the page is close to empty - which is why these pages sit around position 40-70. */}
         <section className="mt-12 pt-8 border-t">
           <h2 className="text-xl font-bold mb-4">
             About Surah {surah.nameEn}
@@ -259,7 +264,8 @@ export default async function SurahPage({ params }: Params) {
               href={`/surah/${surah.id + 1}`}
               className="text-sm text-primary hover:underline"
             >
-              Next Surah →
+              Next Surah
+              <ArrowRight className="h-4 w-4 ms-1 inline" aria-hidden="true" />
             </a>
           )}
         </div>

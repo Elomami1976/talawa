@@ -8,12 +8,17 @@ import { prisma } from "@/lib/prisma";
 import type { Surah } from "@/types";
 
 export const metadata: Metadata = generateMetaTags({
-  title: "Quran Surahs \u2014 All 114 Chapters",
+  title: "Quran Surahs - All 114 Chapters",
   description:
     "Browse all 114 chapters (surahs) of the Holy Quran. Read each surah with Arabic text, transliteration, and English translation.",
   canonical: buildCanonicalUrl("/quran"),
 });
 
+// The root layout calls getLocale(), which opts the whole app into dynamic
+// rendering; only force-static overrides it. Safe here: there is no locale
+// switcher and no [locale] segment, so every request already renders in the
+// default locale. Without this the page hits the DB on every request.
+export const dynamic = "force-static";
 export const revalidate = 86400; // Revalidate once a day
 
 async function getSurahs(): Promise<Surah[]> {
@@ -86,7 +91,7 @@ export default function QuranPage() {
           The Holy Quran
         </h1>
         <p className="text-muted-foreground">
-          114 surahs, 6,236 ayahs — the complete revelation
+          114 surahs, 6,236 ayahs - the complete revelation
         </p>
       </div>
 

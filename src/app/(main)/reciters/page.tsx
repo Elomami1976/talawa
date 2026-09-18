@@ -7,9 +7,9 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  title: "Quran Reciters — Biographies | telawa",
+  title: "Quran Reciters - Biographies | telawa",
   description:
-    "Biographies of the world's most beloved Quran reciters: Yasser Al-Dosari, Maher Al-Muaiqly, Saad Al-Ghamdi, Abu Baker Ash-Shaatree, and Mohamed Siddiq Al-Minshawi — in English and Arabic.",
+    "Biographies of the world's most beloved Quran reciters: Yasser Al-Dosari, Maher Al-Muaiqly, Saad Al-Ghamdi, Abu Baker Ash-Shaatree, and Mohamed Siddiq Al-Minshawi - in English and Arabic.",
   keywords: [
     "Quran reciters",
     "Quran biography",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: buildCanonicalUrl("/reciters"),
-    title: "Quran Reciters — Biographies",
+    title: "Quran Reciters - Biographies",
     description:
       "Read about the world's most beloved Quran reciters in English and Arabic.",
   },

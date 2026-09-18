@@ -14,9 +14,10 @@ const prisma =
         : ["error"],
   });
 
-if (process.env.NODE_ENV !== "production") {
-  global.prisma = prisma;
-}
+// Cache in every environment, not just development: on serverless each function
+// instance would otherwise build its own client and connection pool against the
+// shared pooler.
+global.prisma = prisma;
 
 export { prisma };
 export default prisma;

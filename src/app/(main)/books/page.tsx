@@ -9,7 +9,7 @@ import { BookMarked, Download, ExternalLink, FileText } from "lucide-react";
 export const metadata: Metadata = {
   title: "تحميل أمهات الكتب الإسلامية PDF مجاناً",
   description:
-    "تحميل أمّهات الكتب الإسلامية بصيغة PDF مجاناً وبروابط مباشرة: صحيح البخاري، صحيح مسلم، الموطّأ، مسند الإمام أحمد، فتح الباري، زاد المعاد، والسيرة النبوية لابن هشام — بدون تسجيل.",
+    "تحميل أمّهات الكتب الإسلامية بصيغة PDF مجاناً وبروابط مباشرة: صحيح البخاري، صحيح مسلم، الموطّأ، مسند الإمام أحمد، فتح الباري، زاد المعاد، والسيرة النبوية لابن هشام، بدون تسجيل.",
   keywords: [
     "أمهات الكتب الإسلامية pdf",
     "كتب إسلامية pdf",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: buildCanonicalUrl("/books") },
   openGraph: {
-    title: "تحميل أمهات الكتب الإسلامية بصيغة PDF مجاناً — تلاوة",
+    title: "تحميل أمهات الكتب الإسلامية بصيغة PDF مجاناً - تلاوة",
     description:
       "أمّهات كتب الحديث والسيرة النبوية بصيغة PDF: البخاري، مسلم، الموطّأ، مسند أحمد، فتح الباري، وسيرة ابن هشام.",
     url: buildCanonicalUrl("/books"),
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 /**
  * ItemList of Book entities. The Search Console "Search appearance" report is
- * completely empty for this site, meaning zero rich results — this is the page
+ * completely empty for this site, meaning zero rich results - this is the page
  * best placed to earn one, since it already ranks around position 3.
  */
 function booksJsonLd() {
@@ -157,7 +157,7 @@ export default function BooksPage() {
                   >
                     <span className="inline-flex items-center gap-2">
                       <FileText className="h-4 w-4" />
-                      تحميل {v.label} — PDF
+                      تحميل {v.label} بصيغة PDF
                     </span>
                     {v.size && (
                       <span className="text-xs opacity-80">{v.size}</span>

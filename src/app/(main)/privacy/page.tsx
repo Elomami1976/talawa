@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { buildCanonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy \u2014 telawa",
+  title: "Privacy Policy - telawa",
   description: "Privacy policy for the telawa platform.",
   alternates: { canonical: buildCanonicalUrl("/privacy") },
 };
@@ -35,9 +35,9 @@ export default function PrivacyPage() {
         <h2 className="text-xl font-semibold mt-6">٣. الخدمات الخارجية</h2>
         <p>يستخدم الموقع خدماتٍ عامة موثوقة لجلب البيانات:</p>
         <ul className="list-disc pr-6 space-y-1">
-          <li><code>alquran.cloud</code> و <code>cdn.islamic.network</code> — نصوص القرآن والصوتيات.</li>
-          <li><code>aladhan.com</code> — حساب مواقيت الصلاة.</li>
-          <li><code>ipapi.co</code> — تقدير الموقع تقريبياً عند تعذّر الـ GPS (لتحديد القبلة والمواقيت).</li>
+          <li><code>alquran.cloud</code> و <code>cdn.islamic.network</code>: نصوص القرآن والصوتيات.</li>
+          <li><code>aladhan.com</code>: حساب مواقيت الصلاة.</li>
+          <li><code>ipapi.co</code>: تقدير الموقع تقريبياً عند تعذّر الـ GPS (لتحديد القبلة والمواقيت).</li>
         </ul>
         <p>
           هذه الخدمات قد تسجّل عنوان IP وفق سياساتها الخاصة. لا نحن من نخزّن هذه السجلّات.

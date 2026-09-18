@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
  * Hosted MCP endpoint (Streamable HTTP, JSON-RPC 2.0).
  *
  * Lets AI clients (ChatGPT, Claude, etc.) connect to telawa's Quran tools by
- * URL — no local install required. Just add this Server URL:
+ * URL - no local install required. Just add this Server URL:
  *   https://telawa.org/api/mcp
  *
  * Read-only. Wraps the public /api/v1 endpoints. No API key.

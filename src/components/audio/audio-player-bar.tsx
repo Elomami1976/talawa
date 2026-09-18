@@ -42,7 +42,7 @@ export function AudioPlayerBar() {
   const reciterBase = reciterEntry?.audioBaseUrl ?? reciterId;
   const reciterFormat = reciterEntry?.audioFormat ?? "global";
 
-  // currentAyahKey is "surah:ayah" — derive components for the "surah-ayah" URL pattern
+  // currentAyahKey is "surah:ayah" - derive components for the "surah-ayah" URL pattern
   const [currentSurah, currentAyahInSurah] = currentAyahKey
     ? currentAyahKey.split(":").map(Number)
     : [undefined, undefined];

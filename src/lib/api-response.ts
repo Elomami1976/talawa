@@ -1,9 +1,9 @@
 /**
- * Telawa Public API v1 — response helpers.
+ * Telawa Public API v1 - response helpers.
  *
  * Free, open, no API key required. Protects the database via:
  *   1. Per-IP rate limit (in-memory; replace with Redis in prod cluster).
- *   2. Aggressive Cache-Control headers — most reads hit the CDN, never DB.
+ *   2. Aggressive Cache-Control headers - most reads hit the CDN, never DB.
  *   3. Consistent JSON envelope for all responses.
  */
 import { NextRequest, NextResponse } from "next/server";
@@ -16,15 +16,15 @@ export const CORS_HEADERS = {
   "Access-Control-Max-Age": "86400",
 } as const;
 
-/** Long cache for static content (Quran text, surahs, duas) — 30 days. */
+/** Long cache for static content (Quran text, surahs, duas) - 30 days. */
 export const CACHE_STATIC =
   "public, max-age=3600, s-maxage=2592000, stale-while-revalidate=86400";
 
-/** Medium cache for semi-dynamic content (search, reciters list) — 1 hour. */
+/** Medium cache for semi-dynamic content (search, reciters list) - 1 hour. */
 export const CACHE_MEDIUM =
   "public, max-age=300, s-maxage=3600, stale-while-revalidate=3600";
 
-/** Short cache for time-sensitive content (prayer times) — 5 min. */
+/** Short cache for time-sensitive content (prayer times) - 5 min. */
 export const CACHE_SHORT =
   "public, max-age=60, s-maxage=300, stale-while-revalidate=600";
 

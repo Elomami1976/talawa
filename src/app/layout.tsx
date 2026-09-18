@@ -34,7 +34,7 @@ const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "telawa";
 
 // NOTE: we intentionally do NOT set `export const dynamic = "force-dynamic"` here.
 // Forcing every page dynamic disables SSG, slows TTFB, and turns transient DB
-// hiccups into 5xx responses — which Google flags as "Server error (5xx)" in
+// hiccups into 5xx responses - which Google flags as "Server error (5xx)" in
 // Search Console. Individual routes opt in to dynamic rendering when needed.
 
 export const metadata: Metadata = {

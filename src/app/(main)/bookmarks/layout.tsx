@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildCanonicalUrl } from "@/lib/seo";
 
-// Personal/user-state page \u2014 must not be indexed.
+// Personal/user-state page - must not be indexed.
 export const metadata: Metadata = {
   title: "Your Bookmarks",
   description: "Your saved verses and surahs.",

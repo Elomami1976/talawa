@@ -69,7 +69,7 @@ const endpoints: Endpoint[] = [
     path: "/api/v1/surahs/{id}",
     summary: "Get a specific surah",
     params: [
-      { name: "id", required: true, description: "Surah number (1–114)", example: "1" },
+      { name: "id", required: true, description: "Surah number (1-114)", example: "1" },
       { name: "ayahs", description: "Include ayahs (default true). Pass false to skip.", example: "false" },
       { name: "language", description: "Include translations in this language", example: "en" },
       { name: "translator", description: "Specific translator slug", example: "en.sahih" },
@@ -131,7 +131,7 @@ const endpoints: Endpoint[] = [
     description: "List available translations or fetch text by surah/ayah.",
     params: [
       { name: "list", description: "Return distinct (language, translator) pairs", example: "true" },
-      { name: "surahId", description: "Filter by surah (1–114)", example: "1" },
+      { name: "surahId", description: "Filter by surah (1-114)", example: "1" },
       { name: "ayahId", description: "Filter by single ayah id", example: "1" },
       { name: "language", description: "Language code", example: "ar" },
       { name: "translator", description: "Translator slug", example: "ar.muyassar" },
@@ -385,7 +385,7 @@ export default function DevelopersPage() {
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           A free and open Quran API for the Muslim developer community. Quran
-          text, translations, tafsir, audio, duas, qibla and prayer times — all
+          text, translations, tafsir, audio, duas, qibla and prayer times - all
           in one place. <strong>No API key required.</strong>
         </p>
       </div>
@@ -511,7 +511,7 @@ console.log(data.nameEn); // "Al-Fatihah"`}
         <Card>
           <CardContent className="p-4 text-sm space-y-2">
             <p>
-              Telawa API is provided as <strong>ṣadaqah jāriyah</strong> — a
+              Telawa API is provided as <strong>ṣadaqah jāriyah</strong> - a
               continuous charity. You may use it in any project (commercial or
               non-commercial) without payment.
             </p>

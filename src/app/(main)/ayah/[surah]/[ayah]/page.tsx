@@ -6,12 +6,21 @@ import {
   generateBreadcrumbJsonLd,
 } from "@/lib/seo";
 import { notFound } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 import type { Surah, Ayah } from "@/types";
+
+// Matches /surah/[id] and /quran: ayah content is effectively static.
+// The root layout calls getLocale(), which opts the whole app into dynamic
+// rendering; only force-static overrides it. Safe here: there is no locale
+// switcher and no [locale] segment, so every request already renders in the
+// default locale. Without this the page hits the DB on every request.
+export const dynamic = "force-static";
+export const revalidate = 86400;
 
 interface Props {
   params: Promise<{ surah: string; ayah: string }>;
@@ -49,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // They still work as deep-link landing pages for shared URLs.
   return {
     ...generateMetaTags({
-      title: `${found.surah.nameEn} \u2014 Ayah ${ayahNum}`,
+      title: `${found.surah.nameEn} - Ayah ${ayahNum}`,
       description:
         found.translations[0]?.text?.slice(0, 160) ?? found.textAr.slice(0, 160),
       canonical: buildCanonicalUrl(`/surah/${surahId}`),
@@ -85,19 +94,20 @@ export default async function AyahPage({ params }: Props) {
       }>
     >
   > = null;
-  try {
-    found = await prisma.ayah.findFirst({
-      where: { surahId, ayahNumber: ayahNum },
-      include: {
-        surah: true,
-        translations: { where: { language: "en" }, take: 1 },
-        tafsirs: { take: 1 },
-      },
-    });
-  } catch {
-    notFound();
-  }
+  // Deliberately unguarded. This page is statically rendered, so turning a
+  // transient DB failure into notFound() would bake a 404 into the cache; that
+  // cost us 21 ayah pages in one build. Letting the error throw fails the
+  // render instead, so the last good version keeps being served and ISR retries.
+  found = await prisma.ayah.findFirst({
+    where: { surahId, ayahNumber: ayahNum },
+    include: {
+      surah: true,
+      translations: { where: { language: "en" }, take: 1 },
+      tafsirs: { take: 1 },
+    },
+  });
 
+  // A genuine miss: the query succeeded and there is no such ayah.
   if (!found) notFound();
 
   let prevAyah: { ayahNumber: number } | null = null;
@@ -160,8 +170,7 @@ export default async function AyahPage({ params }: Props) {
       <div className="mb-6">
         <h1 className="text-2xl font-bold mb-1">
           {found.surah.nameEn}
-          <span className="text-muted-foreground font-normal text-lg ml-2">
-            — Ayah {ayahNum}
+          <span className="text-muted-foreground font-normal text-lg ml-2"> - Ayah {ayahNum}
           </span>
         </h1>
         <div className="flex items-center gap-2">
@@ -231,7 +240,8 @@ export default async function AyahPage({ params }: Props) {
           {nextAyah ? (
             <Button variant="outline" asChild>
               <Link href={`/ayah/${surahId}/${nextAyah.ayahNumber}`}>
-                Ayah {nextAyah.ayahNumber} →
+                Ayah {nextAyah.ayahNumber}
+                <ArrowRight className="h-4 w-4 ms-1" aria-hidden="true" />
               </Link>
             </Button>
           ) : (

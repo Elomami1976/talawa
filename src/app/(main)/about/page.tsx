@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { buildCanonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About \u2014 telawa",
+  title: "About - telawa",
   description: "About the telawa project.",
   alternates: { canonical: buildCanonicalUrl("/about") },
 };
@@ -33,7 +33,7 @@ export default function AboutPage() {
 
         <blockquote className="border-r-4 border-primary pr-4 italic text-muted-foreground">
           «إذا مات الإنسانُ انقطع عمله إلا من ثلاث: صدقةٍ جارية، أو علمٍ يُنتفع به،
-          أو ولدٍ صالحٍ يدعو له». — رواه مسلم
+          أو ولدٍ صالحٍ يدعو له». (رواه مسلم)
         </blockquote>
 
         <p className="text-sm text-muted-foreground">

@@ -10,6 +10,13 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+// The root layout calls getLocale(), which opts the whole app into dynamic
+// rendering; only force-static overrides it. Safe here: there is no locale
+// switcher and no [locale] segment, so every request already renders in the
+// default locale. Without this the page hits the DB on every request.
+export const dynamic = "force-static";
+export const revalidate = 86400;
+
 export async function generateStaticParams() {
   return duaCategories.map((c) => ({ id: String(c.id) }));
 }
@@ -19,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = getDuaCategoryById(parseInt(id, 10));
   if (!cat) return {};
   return {
-    title: `${cat.title} — تلاوة`,
-    description: `${cat.title} — أذكار وأدعية مأثورة من كتاب حصن المسلم.`,
+    title: `${cat.title} - تلاوة`,
+    description: `${cat.title}: أذكار وأدعية مأثورة من كتاب حصن المسلم.`,
     alternates: { canonical: buildCanonicalUrl(`/duas/${cat.id}`) },
   };
 }

@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   // Search intent for a reciter's name is overwhelmingly "let me hear them",
   // not "let me read a CV". The title leads with the recitation and keeps the
   // Arabic name out of it so the useful words survive Google's ~60 char cut.
-  const title = `${reciter.nameEn} — Full Quran Recitation & Biography`;
+  const title = `${reciter.nameEn} - Full Quran Recitation & Biography`;
   const description = `Listen to ${reciter.nameEn} (${reciter.nameAr}) recite all 114 surahs of the Holy Quran, free and with no sign-up. ${reciter.taglineEn}`;
   const url = buildCanonicalUrl(`/reciters/${reciter.slug}`);
 
@@ -67,7 +68,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 function jsonLd(reciter: ReturnType<typeof getReciterBySlug>) {
   if (!reciter) return null;
 
-  // `bornEn` reads like "Born 1980, Riyadh" — pull the year and the place out
+  // `bornEn` reads like "Born 1980, Riyadh" - pull the year and the place out
   // so Google gets real birthDate/birthPlace properties instead of prose.
   const year = reciter.bornEn.match(/\b(\d{4})\b/)?.[1];
   const place = reciter.bornEn.split(",").slice(1).join(",").trim();
@@ -138,13 +139,14 @@ export default async function ReciterPage({ params }: Params) {
           href="/quran"
           className="text-sm text-primary hover:underline"
         >
-          Listen to the Quran →
+          Listen to the Quran
+          <ArrowRight className="h-4 w-4 ms-1 inline" aria-hidden="true" />
         </Link>
       </div>
 
       {/* Two columns: English (left, LTR) | Arabic (right, RTL) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-        {/* English column — left */}
+        {/* English column - left */}
         <article
           dir="ltr"
           lang="en"
@@ -173,7 +175,7 @@ export default async function ReciterPage({ params }: Params) {
           </div>
         </article>
 
-        {/* Arabic column — right */}
+        {/* Arabic column - right */}
         <article
           dir="rtl"
           lang="ar"
@@ -203,14 +205,14 @@ export default async function ReciterPage({ params }: Params) {
         </article>
       </div>
 
-      {/* Listen — the reason most people searched this name in the first
+      {/* Listen - the reason most people searched this name in the first
           place. Also seeds internal links into the surah pages. */}
       <section className="mt-10 rounded-2xl border bg-card p-6 md:p-8 shadow-sm">
         <h2 className="text-xl md:text-2xl font-bold mb-2">
           Listen to {reciter.nameEn}
         </h2>
         <p className="text-sm text-muted-foreground mb-6">
-          Play any of the 114 surahs recited by {reciter.nameEn} — free, with
+          Play any of the 114 surahs recited by {reciter.nameEn} - free, with
           Arabic text, transliteration and translation alongside the audio.
         </p>
 
@@ -234,7 +236,8 @@ export default async function ReciterPage({ params }: Params) {
             href="/quran"
             className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition-opacity"
           >
-            Browse all 114 surahs →
+            Browse all 114 surahs
+            <ArrowRight className="h-4 w-4 ms-1 inline" aria-hidden="true" />
           </Link>
           <Link
             href="/reciters"

@@ -92,6 +92,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
+      url: `${BASE_URL}/support`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
       url: `${BASE_URL}/about`,
       lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
@@ -132,7 +138,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // NOTE: intentionally excluded — these are not canonical content:
+  // NOTE: intentionally excluded - these are not canonical content:
   //   /search       -> noindex (search UI, no value to crawl)
   //   /bookmarks    -> user-private, blocked in robots.txt
   //   /settings     -> user-private, blocked in robots.txt

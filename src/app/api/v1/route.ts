@@ -8,9 +8,9 @@ export async function GET() {
       name: "Telawa Public API",
       version: "1.0.0",
       description:
-        "Free, open Quran API — Quran text, translations, tafsir, audio recitations, duas, prayer times, and qibla. No API key required.",
+        "Free, open Quran API - Quran text, translations, tafsir, audio recitations, duas, prayer times, and qibla. No API key required.",
       documentation: "/developers",
-      license: "Open data — attribution appreciated.",
+      license: "Open data - attribution appreciated.",
       rateLimit: "100 requests/minute per IP",
       endpoints: {
         meta: "/api/v1",

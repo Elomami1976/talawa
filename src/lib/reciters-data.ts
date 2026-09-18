@@ -142,8 +142,8 @@ export const RECITER_PROFILES: ReciterProfile[] = [
     nameAr: "محمد صديق المنشاوي",
     countryEn: "Egypt",
     countryAr: "جمهورية مصر العربية",
-    bornEn: "1920 – 1969, Al-Minshah, Sohag",
-    bornAr: "1920م – 1969م، المنشاة، سوهاج",
+    bornEn: "1920-1969, Al-Minshah, Sohag",
+    bornAr: "1920م-1969م، المنشاة، سوهاج",
     styleEn: "Murattal & Mujawwad",
     styleAr: "مرتّل ومجوّد",
     taglineEn:
@@ -198,8 +198,8 @@ export const RECITER_PROFILES: ReciterProfile[] = [
     nameAr: "محمود خليل الحُصَري",
     countryEn: "Egypt",
     countryAr: "جمهورية مصر العربية",
-    bornEn: "1917 – 1980, Shibin Al-Kawm, Tanta",
-    bornAr: "1917م – 1980م، شُبرا النَّمَلة، طنطا",
+    bornEn: "1917-1980, Shibin Al-Kawm, Tanta",
+    bornAr: "1917م-1980م، شُبرا النَّمَلة، طنطا",
     styleEn: "Murattal & Mujawwad",
     styleAr: "مرتّل ومجوّد",
     taglineEn:
@@ -209,7 +209,7 @@ export const RECITER_PROFILES: ReciterProfile[] = [
     bioEn: [
       "Sheikh Mahmoud Khalil Al-Husary was born in 1917 in the village of Shubra Al-Namla in Tanta, Egypt. He memorized the Quran at the age of eight and studied the ten Qira'at at Al-Azhar.",
       "He served as the official reciter of the Husayn Mosque in Cairo, and later as the head (Shaykh al-Maqari') of Egypt's Reciters Union, a position he held until his death.",
-      "He is considered the first reciter to record the entire Holy Quran in the murattal style, and his recordings — both in Hafs and Warsh — became the benchmark for proper tajweed taught around the world.",
+      "He is considered the first reciter to record the entire Holy Quran in the murattal style, and his recordings - both in Hafs and Warsh - became the benchmark for proper tajweed taught around the world.",
       "Sheikh Al-Husary passed away in 1980, leaving behind a vast legacy of recordings that remain the trusted reference for teachers and memorizers of the Quran everywhere.",
     ],
     bioAr: [
@@ -226,14 +226,14 @@ export const RECITER_PROFILES: ReciterProfile[] = [
     nameAr: "عبد الباسط عبد الصمد",
     countryEn: "Egypt",
     countryAr: "جمهورية مصر العربية",
-    bornEn: "1927 – 1988, Al-Maraza, Qena",
-    bornAr: "1927م – 1988م، قرية المراعزة، قنا",
+    bornEn: "1927-1988, Al-Maraza, Qena",
+    bornAr: "1927م-1988م، قرية المراعزة، قنا",
     styleEn: "Mujawwad",
     styleAr: "مجوّد",
     taglineEn:
-      "Egypt's «Voice from Heaven» — a global legend of Quranic recitation whose mujawwad has no equal.",
+      "Egypt's «Voice from Heaven» - a global legend of Quranic recitation whose mujawwad has no equal.",
     taglineAr:
-      "«صوتٌ من السماء» — أسطورةٌ خالدةٌ من أساطين تلاوة القرآن الكريم، لا يُجارى في فن التجويد.",
+      "«صوتٌ من السماء»، أسطورةٌ خالدةٌ من أساطين تلاوة القرآن الكريم، لا يُجارى في فن التجويد.",
     bioEn: [
       "Sheikh Abdul Basit Muhammad Abdul Samad was born in 1927 in the village of Al-Maraza in Qena Governorate, Upper Egypt, into a family with a long tradition of Quranic recitation.",
       "He memorized the Quran at the age of ten and mastered the ten Qira'at. His public recitation career began in the early 1950s, and he quickly became one of the most beloved reciters in the Muslim world.",
@@ -259,7 +259,7 @@ export const RECITER_PROFILES: ReciterProfile[] = [
     styleEn: "Murattal",
     styleAr: "مرتّل",
     taglineEn:
-      "Chief imam and khatib of the Grand Mosque in Makkah — one of the most recognized voices of the Holy Quran today.",
+      "Chief imam and khatib of the Grand Mosque in Makkah - one of the most recognized voices of the Holy Quran today.",
     taglineAr:
       "إمامٌ وخطيبٌ بالمسجد الحرام بمكة المكرمة، ومن أكثر أصوات القرآن الكريم انتشاراً في عصرنا الحاضر.",
     bioEn: [
@@ -293,7 +293,7 @@ export const RECITER_PROFILES: ReciterProfile[] = [
     bioEn: [
       "Sheikh Ali bin Abdurrahman Al-Hudhaify was born in the village of Al-Qara in the Aseer region of Saudi Arabia in 1947. He memorized the Quran in his youth and pursued advanced Islamic studies.",
       "He earned his PhD from the Islamic University of Madinah, where he later served as a professor in the Faculty of the Holy Quran and Islamic Studies.",
-      "He was appointed as an imam at the Prophet's Mosque (Al-Masjid An-Nabawi) in Madinah, and also served for a period as an imam of the Grand Mosque in Makkah — a rare honor.",
+      "He was appointed as an imam at the Prophet's Mosque (Al-Masjid An-Nabawi) in Madinah, and also served for a period as an imam of the Grand Mosque in Makkah - a rare honor.",
       "His recitation is known for its slow, measured tartil and exemplary application of tajweed rules, making his recordings particularly valued by students of the Quran.",
     ],
     bioAr: [

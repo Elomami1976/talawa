@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/badge";
 const HOSTED_URL = "https://telawa.org/api/mcp";
 
 const useCases = [
-  { icon: BookOpen, t: "Cite verses accurately", d: "Models stop hallucinating ayat — they fetch real Arabic text + translation." },
+  { icon: BookOpen, t: "Cite verses accurately", d: "Models stop hallucinating ayat - they fetch real Arabic text + translation." },
   { icon: Search, t: "Search the Quran", d: "Full-text search across Arabic and 10+ translations from inside a chat." },
   { icon: Bot, t: "Build Islamic assistants", d: "Power custom GPTs / agents with tafsir, duas, reciters and qibla." },
   { icon: Zap, t: "Daily verse & study", d: "Random ayah, dhikr from Hisn al-Muslim, prayer/qibla helpers." },
@@ -50,7 +50,7 @@ const faq = [
   ["Do I need an API key?", "No. It is free and open. The hosted URL works immediately; please attribute telawa.org."],
   ["Hosted vs local?", "Hosted = paste the URL, zero install. Local = run via npx/node for offline or custom setups."],
   ["What data is it?", "The same as our public API: Quran text, translations, tafsir, duas, reciters, qibla."],
-  ["Is it read-only?", "Yes. The MCP server only reads — it never modifies anything."],
+  ["Is it read-only?", "Yes. The MCP server only reads - it never modifies anything."],
 ];
 
 function CopyBtn({ text }: { text: string }) {
@@ -78,12 +78,12 @@ export default function McpPage() {
           <Sparkles className="h-7 w-7 text-primary" />
         </div>
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-          Telawa MCP — Quran for AI
+          Telawa MCP - Quran for AI
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           Connect ChatGPT, Claude, Copilot and any MCP client to the Holy Quran.
           Live tools to read, search and cite the Quran, tafsir, duas, reciters
-          and qibla — no API key required.
+          and qibla - no API key required.
         </p>
         <div className="mt-4 flex items-center justify-center gap-2 flex-wrap">
           <Badge variant="secondary">Free & open</Badge>
@@ -97,7 +97,7 @@ export default function McpPage() {
         <CardContent className="p-5">
           <div className="flex items-center gap-2 mb-2">
             <Server className="h-4 w-4 text-primary" />
-            <h2 className="font-semibold">Hosted server — just paste the URL</h2>
+            <h2 className="font-semibold">Hosted server - just paste the URL</h2>
           </div>
           <div className="flex items-center gap-2 bg-muted rounded-lg px-3 py-2.5 font-mono text-sm">
             <span className="flex-1 truncate">{HOSTED_URL}</span>
@@ -130,7 +130,7 @@ export default function McpPage() {
           {tools.map(([n, d]) => (
             <div key={n} className="flex gap-2 text-sm border rounded-lg px-3 py-2">
               <code className="text-primary font-mono shrink-0">{n}</code>
-              <span className="text-muted-foreground">— {d}</span>
+              <span className="text-muted-foreground">- {d}</span>
             </div>
           ))}
         </div>

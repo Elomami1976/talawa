@@ -156,7 +156,16 @@ export default async function Image({ params }: Props) {
             <span style={{ display: "flex" }}>
               {display.ayahCount} verses
             </span>
-            <span style={{ display: "flex", color: "#475569" }}>•</span>
+            <span
+              style={{
+                display: "flex",
+                width: 6,
+                height: 6,
+                borderRadius: 3,
+                background: "#475569",
+                alignSelf: "center",
+              }}
+            />
             <span style={{ display: "flex" }}>{display.revelationType}</span>
           </div>
         )}

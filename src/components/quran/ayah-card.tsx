@@ -63,7 +63,7 @@ export function AyahCard({
   const fontSizeClass = ARABIC_FONT_SIZES[arabicFontSize] || "text-arabic-lg";
 
   const handleCopy = async () => {
-    const text = `${ayah.textAr}\n\n${translation?.text || ""}\n\n— Quran ${ayah.surahId}:${ayah.ayahNumber}`;
+    const text = `${ayah.textAr}\n\n${translation?.text || ""}\n\n- Quran ${ayah.surahId}:${ayah.ayahNumber}`;
     await navigator.clipboard.writeText(text);
     setCopied(true);
     toast({ title: "Copied to clipboard" });
@@ -118,7 +118,7 @@ export function AyahCard({
     const reciterSlug = (reciterEntry?.identifier ?? reciterId ?? "reciter").replace(/[^a-z0-9._-]/gi, "_");
     try {
       await downloadAudioFile(url, `quran-${ayah.surahId}-${ayah.ayahNumber}-${reciterSlug}.mp3`);
-      toast({ title: "Downloading…", description: `Surah ${ayah.surahId}, Ayah ${ayah.ayahNumber}` });
+      toast({ title: "Downloading...", description: `Surah ${ayah.surahId}, Ayah ${ayah.ayahNumber}` });
     } catch {
       toast({ title: "Download failed", description: "Please try again" });
     }
@@ -257,8 +257,7 @@ export function AyahCard({
           <p className="text-sm text-muted-foreground leading-relaxed">
             {translation.text}
           </p>
-          <p className="text-xs text-muted-foreground/60 mt-1">
-            — {translation.translator}
+          <p className="text-xs text-muted-foreground/60 mt-1">- {translation.translator}
           </p>
         </>
       )}

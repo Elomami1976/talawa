@@ -8,8 +8,14 @@ import { generateMetaTags, buildCanonicalUrl } from "@/lib/seo";
 import { plainArabicName } from "@/lib/utils";
 import { prisma } from "@/lib/prisma";
 
+// force-static because the root layout calls getLocale(), which would otherwise
+// keep this page dynamic and hit the DB on every request; revalidate regenerates
+// it hourly so the Ayah of the Day still rolls over.
+export const dynamic = "force-static";
+export const revalidate = 3600;
+
 export const metadata: Metadata = generateMetaTags({
-  title: "QuranApp \u2014 Read, Listen & Reflect",
+  title: "QuranApp - Read, Listen & Reflect",
   description:
     "Explore the Holy Quran with beautiful recitations, accurate translations, and in-depth tafsir. Read every surah and ayah with Islamic scholarly commentary.",
   canonical: buildCanonicalUrl("/"),
@@ -18,7 +24,7 @@ export const metadata: Metadata = generateMetaTags({
 async function getFeaturedSurahs() {
   try {
     const ids = [1, 2, 18, 36, 55, 67, 112, 113, 114];
-    return prisma.surah.findMany({
+    return await prisma.surah.findMany({
       where: { id: { in: ids } },
       orderBy: { id: "asc" },
     });
@@ -35,7 +41,7 @@ async function getDailyAyah() {
         86_400_000
     );
     const skip = dayOfYear % total;
-    return prisma.ayah.findFirst({
+    return await prisma.ayah.findFirst({
       skip,
       include: {
         surah: { select: { nameEn: true, id: true } },
@@ -96,7 +102,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Ayah of the Day — the centerpiece. Deliberately NOT a Card: it sits
+      {/* Ayah of the Day - the centerpiece. Deliberately NOT a Card: it sits
           on its own ground with a wider measure and much larger Arabic so it
           reads as scripture rather than as another tile in the grid. */}
       {dailyAyah && (

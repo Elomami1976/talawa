@@ -4,12 +4,12 @@ import { HadithSearchClient } from "@/components/hadith/hadith-search-client";
 import { buildCanonicalUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "التحقّق من صحة الحديث | Hadith Authenticity Check — تلاوة",
+  title: "التحقّق من صحة الحديث | Hadith Authenticity Check - تلاوة",
   description:
     "تحقّق من صحة الأحاديث النبوية عبر الموسوعة الحديثية للدرر السنية: ابحث عن أي حديث لتعرف درجته (صحيح، حسن، ضعيف، موضوع) ومخرِّجه والكتاب الذي ورد فيه.",
   alternates: { canonical: buildCanonicalUrl("/hadith") },
   openGraph: {
-    title: "التحقّق من صحة الحديث — تلاوة",
+    title: "التحقّق من صحة الحديث - تلاوة",
     description:
       "ابحث عن أي حديث في الموسوعة الحديثية للدرر السنية، واطّلع على درجته ومصدره.",
     url: buildCanonicalUrl("/hadith"),
