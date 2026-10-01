@@ -1,6 +1,6 @@
 # telawa.org
 
-> telawa.org (تلاوة) is a free, open Quran platform that lets Muslims and learners read, listen to, and reflect on the Holy Quran. The site offers the complete Quran in Arabic with translations in 10+ languages, in-depth tafsir (exegesis), high-quality audio recitations from leading reciters, prayer times, qibla direction, daily duas from Hisn al-Muslim, hadith authenticity lookup via the Dorar encyclopedia, and personal bookmarks.
+> telawa.org (تلاوة) is a free, open Quran platform that lets Muslims and learners read, listen to, and reflect on the Holy Quran. The site offers the complete Quran in Arabic with translations in 7 languages (English, French, German, Turkish, Urdu, Russian, Indonesian), in-depth tafsir (exegesis), high-quality audio recitations from leading reciters, prayer times, qibla direction, daily duas from Hisn al-Muslim, hadith authenticity lookup via the Dorar encyclopedia, and personal bookmarks.
 
 The canonical origin is https://telawa.org (no `www`). Content is bilingual (Arabic/English primary; additional UI locales available). All Quran text and metadata are sourced from public Islamic-text APIs and stored in a PostgreSQL database; tafsir, translations and recitations are credited to their original authors. The codebase is open and hosted on GitHub.
 
@@ -8,7 +8,8 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 
 - [Quran index](https://telawa.org/quran): Browse all 114 surahs with Arabic names, English names, revelation period, and verse counts.
 - [Surah pages](https://telawa.org/surah/1): One page per surah (IDs 1-114), each with full Arabic text, transliteration, English translation, tafsir, and audio recitation, plus a summary of the surah (meaning of its name, verse count, Meccan/Medinan, order of revelation, ruku and sajdah counts) and a short FAQ. Example: `/surah/1` (Al-Fatihah), `/surah/2` (Al-Baqarah), `/surah/36` (Ya-Sin), `/surah/112` (Al-Ikhlas).
-- [Search](https://telawa.org/search): Full-text search across the Quran in Arabic and translations (UI only, noindex).
+- Surah audio: "Play Surah" plays the whole surah ayah by ayah without pauses between verses (the next ayah is preloaded), highlighting and scrolling to the current ayah. 18 reciters are selectable. Each ayah can be downloaded as MP3, and "Download Surah" downloads the full surah as one continuous MP3 recording (sourced from mp3quran.net; available for every reciter except Ayman Sowaid).
+- [Search](https://telawa.org/search): Full-text search across the Quran in Arabic and translations, linked from the site header (UI only, noindex).
 
 ## Reciters
 
@@ -48,3 +49,4 @@ The canonical origin is https://telawa.org (no `www`). Content is bilingual (Ara
 - Robots: https://telawa.org/robots.txt
 - Not for indexing: `/api/*`, `/_next/*`, `/search`, `/settings`, `/bookmarks`, `/ayah/*` (ayah-level pages canonicalize to their parent surah).
 - License: Quran Arabic text is public domain. Translations, tafsir, and reciter audio are © their respective authors; please credit original sources when quoting.
+- Audio sources: per-ayah audio from cdn.islamic.network and everyayah.com; full-surah downloads from mp3quran.net.

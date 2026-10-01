@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, BookOpen, Search, Clock } from "lucide-react";
+import { ArrowRight, BookOpen, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PrayerTimesWidget } from "@/components/prayer/prayer-times-widget";
@@ -90,12 +90,6 @@ export default async function HomePage() {
               <Link href="/quran">
                 <BookOpen className="mr-2 h-4 w-4" />
                 Start Reading
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/search">
-                <Search className="mr-2 h-4 w-4" />
-                Search Quran
               </Link>
             </Button>
           </div>

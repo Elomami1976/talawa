@@ -46,21 +46,27 @@ const navItems = [
   { href: "/settings", labelKey: "settings", icon: Settings },
 ];
 
-// Primary content links shown directly in the desktop header.
+// Primary content links shown directly in the desktop header. Items marked
+// `wideOnly` only fit inline from `lg` up; below that they move into "Tools".
 const primaryNavItems = [
   { href: "/quran", labelKey: "quran", icon: BookOpen },
   { href: "/reciters", labelKey: "reciters", icon: Mic },
   { href: "/duas", labelKey: "duas", icon: BookHeart },
-  { href: "/books", labelKey: "books", icon: BookMarked },
-  { href: "/hadith", labelKey: "hadith", icon: BookCheck },
+  { href: "/books", labelKey: "books", icon: BookMarked, wideOnly: true },
+  { href: "/hadith", labelKey: "hadith", icon: BookCheck, wideOnly: true },
   { href: "/search", labelKey: "search", icon: Search },
 ];
+
+const overflowNavItems = primaryNavItems.filter((item) => item.wideOnly);
 
 // Utility links grouped under the "Tools" dropdown.
 const toolNavItems = [
   { href: "/prayer-times", labelKey: "prayerTimes", icon: Clock },
   { href: "/qibla", labelKey: "qibla", icon: Compass },
 ];
+
+const isActive = (pathname: string, href: string) =>
+  pathname === href || pathname.startsWith(href + "/");
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -69,7 +75,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full glass border-b">
+    <header className="theme-inverse sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur-md text-foreground">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link
@@ -81,14 +87,15 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
           {primaryNavItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "px-3 py-2 text-sm rounded-lg transition-colors",
-                pathname === item.href || pathname.startsWith(item.href + "/")
+                "whitespace-nowrap px-2 lg:px-3 py-2 text-sm rounded-lg transition-colors",
+                item.wideOnly && "hidden lg:block",
+                isActive(pathname, item.href)
                   ? "bg-primary/10 text-primary font-medium"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
@@ -102,14 +109,12 @@ export function Navbar() {
             <DropdownMenuTrigger asChild>
               <button
                 className={cn(
-                  "flex items-center gap-1 px-3 py-2 text-sm rounded-lg transition-colors outline-none",
-                  toolNavItems.some(
-                    (item) =>
-                      pathname === item.href ||
-                      pathname.startsWith(item.href + "/")
-                  )
+                  "flex items-center gap-1 whitespace-nowrap px-2 lg:px-3 py-2 text-sm rounded-lg transition-colors outline-none",
+                  toolNavItems.some((item) => isActive(pathname, item.href))
                     ? "bg-primary/10 text-primary font-medium"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    : overflowNavItems.some((item) => isActive(pathname, item.href))
+                      ? "bg-primary/10 text-primary font-medium lg:bg-transparent lg:text-muted-foreground lg:font-normal lg:hover:text-foreground lg:hover:bg-muted"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 {t("tools" as keyof ReturnType<typeof t>)}
@@ -117,6 +122,17 @@ export function Navbar() {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              {overflowNavItems.map((item) => (
+                <DropdownMenuItem key={item.href} asChild className="lg:hidden">
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-2 cursor-pointer"
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {t(item.labelKey as keyof ReturnType<typeof t>)}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
               {toolNavItems.map((item) => (
                 <DropdownMenuItem key={item.href} asChild>
                   <Link

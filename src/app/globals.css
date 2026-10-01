@@ -9,8 +9,11 @@
    down in saturation so they read as manuscript ink and antique
    ochre rather than UI-kit green and brass.
    ============================================================ */
+/* `.theme-inverse` (used by the site header) always takes the opposite
+   palette to the page: dark in light mode, light in dark mode. */
 @layer base {
-  :root {
+  :root,
+  .dark .theme-inverse {
     --background: 40 30% 98.5%;
     --foreground: 30 12% 14%;
     --card: 40 33% 99.5%;
@@ -37,7 +40,8 @@
     --gold-foreground: 40 30% 98.5%;
   }
 
-  .dark {
+  .dark,
+  :root:not(.dark) .theme-inverse {
     --background: 30 12% 8%;
     --foreground: 40 18% 92%;
     --card: 30 11% 10.5%;

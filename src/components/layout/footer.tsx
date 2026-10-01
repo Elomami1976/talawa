@@ -16,73 +16,78 @@ function YouTubeIcon() {
   );
 }
 
+const linkGroups = [
+  {
+    title: "الموقع",
+    links: [
+      { href: "/about", label: "من نحن" },
+      { href: "/support", label: "دعم الموقع" },
+      { href: "/contact", label: "اتصل بنا" },
+      { href: "/privacy", label: "سياسة الخصوصية" },
+    ],
+  },
+  {
+    title: "للمطورين",
+    links: [
+      { href: "/developers", label: "واجهة المطورين (API)" },
+      { href: "/mcp", label: "خادم MCP" },
+    ],
+  },
+];
+
+const socialLinks = [
+  { href: "https://www.tiktok.com/@telawaorg?lang=en", label: "تيك توك", Icon: TikTokIcon },
+  { href: "https://www.youtube.com/@telawaorg", label: "يوتيوب", Icon: YouTubeIcon },
+];
+
+const linkClass = "text-muted-foreground hover:text-primary transition-colors";
+
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/30 mt-8" dir="rtl">
-      <div className="container mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 text-sm">
-          {/* Brand */}
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
+    <footer className="theme-inverse border-t bg-background text-foreground mt-8" dir="rtl">
+      <div className="container mx-auto max-w-5xl px-4 py-10">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 text-sm md:grid-cols-4">
+          {/* Brand - full width on mobile, first column from md up */}
+          <div className="col-span-2 flex flex-col gap-3 md:col-span-1">
+            <Link href="/" className="flex items-center gap-2 w-fit">
               <span className="font-arabic text-2xl text-primary">ق</span>
               <span className="font-semibold text-base">تلاوة</span>
-            </div>
-            <p className="text-muted-foreground leading-relaxed max-w-xs">
+            </Link>
+            <p className="text-muted-foreground leading-relaxed">
               صدقةٌ جاريةٌ للمسلمين والمسلمات الأحياء منهم والأموات.
             </p>
           </div>
 
-          {/* Navigation */}
-          <nav className="flex flex-col gap-3">
-            <h3 className="font-semibold text-foreground">روابط</h3>
-            <Link href="/support" className="text-muted-foreground hover:text-primary transition-colors">
-              دعم الموقع
-            </Link>
-            <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
-              من نحن
-            </Link>
-            <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
-              سياسة الخصوصية
-            </Link>
-            <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-              اتصل بنا
-            </Link>
-            <Link href="/developers" className="text-muted-foreground hover:text-primary transition-colors">
-              واجهة المطورين (API)
-            </Link>
-            <Link href="/mcp" className="text-muted-foreground hover:text-primary transition-colors">
-              MCP
-            </Link>
-          </nav>
+          {linkGroups.map((group) => (
+            <nav key={group.title} className="flex flex-col gap-3" aria-label={group.title}>
+              <h3 className="font-semibold">{group.title}</h3>
+              {group.links.map((link) => (
+                <Link key={link.href} href={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          ))}
 
-          {/* Social */}
           <div className="flex flex-col gap-3">
-            <h3 className="font-semibold text-foreground">تابعنا</h3>
-            <Link
-              href="https://www.tiktok.com/@telawaorg?lang=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-              aria-label="تيك توك"
-            >
-              <TikTokIcon />
-              <span>تيك توك</span>
-            </Link>
-            <Link
-              href="https://www.youtube.com/@telawaorg"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-              aria-label="يوتيوب"
-            >
-              <YouTubeIcon />
-              <span>يوتيوب</span>
-            </Link>
+            <h3 className="font-semibold">تابعنا</h3>
+            {socialLinks.map(({ href, label, Icon }) => (
+              <Link
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-2 w-fit ${linkClass}`}
+              >
+                <Icon />
+                <span>{label}</span>
+              </Link>
+            ))}
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 border-t pt-6 text-center text-xs text-muted-foreground">
+        <div className="mt-10 border-t pt-6 text-center text-xs text-muted-foreground">
           © {new Date().getFullYear()} تلاوة. جميع الحقوق محفوظة.
         </div>
       </div>
