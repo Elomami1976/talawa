@@ -36,6 +36,7 @@ export default function PrivacyPage() {
         <p>يستخدم الموقع خدماتٍ عامة موثوقة لجلب البيانات:</p>
         <ul className="list-disc pr-6 space-y-1">
           <li><code>alquran.cloud</code> و <code>cdn.islamic.network</code>: نصوص القرآن والصوتيات.</li>
+          <li><code>mp3quran.net</code>: تحميل السورة كاملة بتلاوة متصلة.</li>
           <li><code>aladhan.com</code>: حساب مواقيت الصلاة.</li>
           <li><code>ipapi.co</code>: تقدير الموقع تقريبياً عند تعذّر الـ GPS (لتحديد القبلة والمواقيت).</li>
         </ul>

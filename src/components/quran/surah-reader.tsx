@@ -6,10 +6,11 @@ import { Bismillah } from "@/components/quran/bismillah";
 import { TranslationSwitcher } from "@/components/quran/translation-switcher";
 import { ReciterSelector } from "@/components/quran/reciter-selector";
 import { Button } from "@/components/ui/button";
-import { Play, Square } from "lucide-react";
+import { Download, Loader2, Play, Square } from "lucide-react";
 import { useSettingsStore } from "@/store/settings-store";
 import { useAudioStore } from "@/store/audio-store";
 import { AVAILABLE_TRANSLATIONS, AVAILABLE_TAFSIRS, DEFAULT_RECITERS } from "@/lib/constants";
+import { downloadAudioFile } from "@/lib/utils";
 import type { AyahWithDetails, Translation, Tafsir } from "@/types";
 
 interface SurahReaderProps {
@@ -34,6 +35,7 @@ export function SurahReader({ surahId, ayahs }: SurahReaderProps) {
   const [tafsirs, setTafsirs] = useState<Map<number, Tafsir>>(new Map());
   const [loadingTr, setLoadingTr] = useState(false);
   const [loadingTaf, setLoadingTaf] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   const translationMeta = useMemo(
     () => AVAILABLE_TRANSLATIONS.find((t) => t.key === defaultTranslation),
@@ -78,6 +80,22 @@ export function SurahReader({ surahId, ayahs }: SurahReaderProps) {
     }
     const queue = ayahs.map((a) => ({ key: a.ayahKey, number: a.id }));
     playQueueStart(queue, 0);
+  };
+
+  // One continuous recording of the whole surah, not stitched ayah files.
+  const fullSurahUrl = reciter.fullSurahBaseUrl
+    ? `${reciter.fullSurahBaseUrl}/${String(surahId).padStart(3, "0")}.mp3`
+    : null;
+
+  const handleDownloadSurah = async () => {
+    if (!fullSurahUrl || downloading) return;
+    setDownloading(true);
+    try {
+      const reciterSlug = reciter.identifier.replace(/[^a-z0-9._-]/gi, "_");
+      await downloadAudioFile(fullSurahUrl, `quran-surah-${surahId}-${reciterSlug}.mp3`);
+    } finally {
+      setDownloading(false);
+    }
   };
 
   // Fetch translations.
@@ -158,6 +176,23 @@ export function SurahReader({ surahId, ayahs }: SurahReaderProps) {
               </>
             )}
           </Button>
+          {fullSurahUrl && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleDownloadSurah}
+              disabled={downloading}
+              className="h-8 text-xs"
+              title={`Download the full surah recited by ${reciter.name} as one MP3`}
+            >
+              {downloading ? (
+                <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+              ) : (
+                <Download className="h-3.5 w-3.5 mr-1" />
+              )}
+              {downloading ? "Downloading..." : "Download Surah"}
+            </Button>
+          )}
           <Button
             size="sm"
             variant={showTafsir ? "default" : "outline"}

@@ -42,12 +42,18 @@ export const DEFAULT_RECITERS: Array<{
    *  - "surah-ayah" → `{base}/{surah:03}{ayah:03}.mp3` (everyayah.com style)
    */
   audioFormat?: "global" | "surah-ayah";
+  /**
+   * Continuous full-surah recordings (mp3quran.net): `{base}/{surah:03}.mp3`.
+   * Omitted when no complete recording exists for the reciter.
+   */
+  fullSurahBaseUrl?: string;
 }> = [
   {
     identifier: "ar.yasseraldossari",
     name: "Yasser Al-Dosari",
     style: "Murattal",
     audioBaseUrl: "https://everyayah.com/data/Yasser_Ad-Dussary_128kbps",
+    fullSurahBaseUrl: "https://server11.mp3quran.net/yasser",
     audioFormat: "surah-ayah",
   },
   {
@@ -55,12 +61,14 @@ export const DEFAULT_RECITERS: Array<{
     name: "Maher Al-Muaiqly",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.mahermuaiqly",
+    fullSurahBaseUrl: "https://server12.mp3quran.net/maher",
   },
   {
     identifier: "ar.saadalghamdi",
     name: "Saad Al-Ghamdi",
     style: "Murattal",
     audioBaseUrl: "https://everyayah.com/data/Ghamadi_40kbps",
+    fullSurahBaseUrl: "https://server7.mp3quran.net/s_gmd",
     audioFormat: "surah-ayah",
   },
   {
@@ -68,84 +76,98 @@ export const DEFAULT_RECITERS: Array<{
     name: "Abu Baker Ash-Shaatree",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.shaatree",
+    fullSurahBaseUrl: "https://server11.mp3quran.net/shatri",
   },
   {
     identifier: "ar.minshawi",
     name: "Mohamed Siddiq AL-Minshawi",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.minshawi",
+    fullSurahBaseUrl: "https://server10.mp3quran.net/minsh",
   },
   {
     identifier: "ar.alafasy",
     name: "Mishary Rashid Alafasy",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.alafasy",
+    fullSurahBaseUrl: "https://server8.mp3quran.net/afs",
   },
   {
     identifier: "ar.husary",
     name: "Mahmoud Khalil Al-Husary",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.husary",
+    fullSurahBaseUrl: "https://server13.mp3quran.net/husr",
   },
   {
     identifier: "ar.husarymujawwad",
     name: "Mahmoud Al-Husary (Mujawwad)",
     style: "Mujawwad",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.husarymujawwad",
+    fullSurahBaseUrl: "https://server13.mp3quran.net/husr/Almusshaf-Al-Mojawwad",
   },
   {
     identifier: "ar.abdulsamad",
     name: "Abdul Basit Abdul Samad",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/64/ar.abdulsamad",
+    fullSurahBaseUrl: "https://server7.mp3quran.net/basit",
   },
   {
     identifier: "ar.abdurrahmaansudais",
     name: "Abdul Rahman Al-Sudais",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/64/ar.abdurrahmaansudais",
+    fullSurahBaseUrl: "https://server11.mp3quran.net/sds",
   },
   {
     identifier: "ar.hudhaify",
     name: "Ali Al-Hudhaify",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.hudhaify",
+    fullSurahBaseUrl: "https://server9.mp3quran.net/hthfi",
   },
   {
     identifier: "ar.ahmedajamy",
     name: "Ahmed Al-Ajamy",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.ahmedajamy",
+    fullSurahBaseUrl: "https://server10.mp3quran.net/ajm",
   },
   {
     identifier: "ar.muhammadayyoub",
     name: "Muhammad Ayyoub",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.muhammadayyoub",
+    fullSurahBaseUrl: "https://server8.mp3quran.net/ayyub",
   },
   {
     identifier: "ar.muhammadjibreel",
     name: "Muhammad Jibreel",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/128/ar.muhammadjibreel",
+    fullSurahBaseUrl: "https://server8.mp3quran.net/jbrl",
   },
   {
     identifier: "ar.hanirifai",
     name: "Hani Ar-Rifai",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/64/ar.hanirifai",
+    fullSurahBaseUrl: "https://server8.mp3quran.net/hani",
   },
   {
     identifier: "ar.saoodshuraym",
     name: "Saud Al-Shuraim",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/64/ar.saoodshuraym",
+    fullSurahBaseUrl: "https://server7.mp3quran.net/shur",
   },
   {
     identifier: "ar.abdullahbasfar",
     name: "Abdullah Basfar",
     style: "Murattal",
     audioBaseUrl: "https://cdn.islamic.network/quran/audio/64/ar.abdullahbasfar",
+    fullSurahBaseUrl: "https://server6.mp3quran.net/bsfr",
   },
   {
     identifier: "ar.aymanswoaid",

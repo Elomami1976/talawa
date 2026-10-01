@@ -36,63 +36,101 @@ export function AudioPlayerBar() {
   const hasNext = hasQueue && (playQueueIndex as number) < playQueue.length - 1;
   const hasPrev = hasQueue && (playQueueIndex as number) > 0;
 
+  // Two elements, double-buffered: `audioRef` is the one playing, `nextRef`
+  // silently preloads the next ayah in the queue. On "ended" they swap, so the
+  // next ayah starts instantly instead of waiting for a network fetch.
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const nextRef = useRef<HTMLAudioElement | null>(null);
+  const nextUrlRef = useRef<string | null>(null);
 
   const reciterEntry = DEFAULT_RECITERS.find((r) => r.identifier === reciterId);
   const reciterBase = reciterEntry?.audioBaseUrl ?? reciterId;
   const reciterFormat = reciterEntry?.audioFormat ?? "global";
 
-  // currentAyahKey is "surah:ayah" - derive components for the "surah-ayah" URL pattern
-  const [currentSurah, currentAyahInSurah] = currentAyahKey
-    ? currentAyahKey.split(":").map(Number)
-    : [undefined, undefined];
+  // Ayah keys are "surah:ayah" - split them for the "surah-ayah" URL pattern
+  const urlFor = (key: string | null, number: number | null) => {
+    if (!key || !number || !reciterId) return null;
+    const [s, a] = key.split(":").map(Number);
+    return buildAudioUrl(reciterBase, number, s, a, reciterFormat);
+  };
 
-  const audioUrl = currentAyahNumber && reciterId
-    ? buildAudioUrl(
-        reciterBase,
-        currentAyahNumber,
-        currentSurah,
-        currentAyahInSurah,
-        reciterFormat
-      )
-    : null;
+  const audioUrl = urlFor(currentAyahKey, currentAyahNumber);
+  const nextItem = hasNext ? playQueue[(playQueueIndex as number) + 1] : null;
+  const nextUrl = nextItem ? urlFor(nextItem.key, nextItem.number) : null;
 
   useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio();
+    if (!audioRef.current) audioRef.current = new Audio();
+    if (!nextRef.current) {
+      nextRef.current = new Audio();
+      nextRef.current.preload = "auto";
     }
-    const audio = audioRef.current;
+    const elements = [audioRef.current, nextRef.current];
 
-    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
-    const onDurationChange = () => setDuration(audio.duration);
-    const onEnded = () => {
-      if (isRepeat) {
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
+    // Both elements share these handlers; only the active one may update the UI.
+    const isActive = (e: Event) => e.currentTarget === audioRef.current;
+
+    const onTimeUpdate = (e: Event) => {
+      if (isActive(e)) setCurrentTime(audioRef.current!.currentTime);
+    };
+    const onDurationChange = (e: Event) => {
+      if (isActive(e)) setDuration(audioRef.current!.duration);
+    };
+    const onWaiting = (e: Event) => {
+      if (isActive(e)) setIsLoading(true);
+    };
+    const onCanPlay = (e: Event) => {
+      if (isActive(e)) setIsLoading(false);
+    };
+    const onEnded = (e: Event) => {
+      if (!isActive(e)) return;
+      const finished = audioRef.current!;
+
+      if (useAudioStore.getState().isRepeat) {
+        finished.currentTime = 0;
+        finished.play().catch(() => {});
         return;
       }
-      const advanced = playNext();
-      if (!advanced) {
-        setIsPlaying(false);
-      }
-    };
-    const onWaiting = () => setIsLoading(true);
-    const onCanPlay = () => setIsLoading(false);
 
-    audio.addEventListener("timeupdate", onTimeUpdate);
-    audio.addEventListener("durationchange", onDurationChange);
-    audio.addEventListener("ended", onEnded);
-    audio.addEventListener("waiting", onWaiting);
-    audio.addEventListener("canplay", onCanPlay);
+      const preloaded = nextRef.current!;
+      const target = nextUrlRef.current;
+      if (target && preloaded.src === target) {
+        // Start the preloaded ayah in this same tick - no render, no fetch.
+        audioRef.current = preloaded;
+        nextRef.current = finished;
+        setCurrentTime(0);
+        if (!Number.isNaN(preloaded.duration)) setDuration(preloaded.duration);
+        setIsLoading(preloaded.readyState < HTMLMediaElement.HAVE_FUTURE_DATA);
+        preloaded.play().catch(() => {
+          // Some browsers (notably iOS Safari) refuse play() on an element the
+          // user never interacted with. Fall back to reusing the old element.
+          audioRef.current = finished;
+          nextRef.current = preloaded;
+          finished.src = target;
+          finished.play().catch(() => setIsPlaying(false));
+        });
+      }
+
+      if (!playNext()) setIsPlaying(false);
+    };
+
+    for (const el of elements) {
+      el.addEventListener("timeupdate", onTimeUpdate);
+      el.addEventListener("durationchange", onDurationChange);
+      el.addEventListener("ended", onEnded);
+      el.addEventListener("waiting", onWaiting);
+      el.addEventListener("canplay", onCanPlay);
+    }
 
     return () => {
-      audio.removeEventListener("timeupdate", onTimeUpdate);
-      audio.removeEventListener("durationchange", onDurationChange);
-      audio.removeEventListener("ended", onEnded);
-      audio.removeEventListener("waiting", onWaiting);
-      audio.removeEventListener("canplay", onCanPlay);
+      for (const el of elements) {
+        el.removeEventListener("timeupdate", onTimeUpdate);
+        el.removeEventListener("durationchange", onDurationChange);
+        el.removeEventListener("ended", onEnded);
+        el.removeEventListener("waiting", onWaiting);
+        el.removeEventListener("canplay", onCanPlay);
+      }
     };
-  }, [isRepeat, playNext, setCurrentTime, setDuration, setIsLoading, setIsPlaying]);
+  }, [playNext, setCurrentTime, setDuration, setIsLoading, setIsPlaying]);
 
   useEffect(() => {
     if (!audioRef.current || !audioUrl) return;
@@ -102,16 +140,25 @@ export function AudioPlayerBar() {
       audio.load();
     }
     if (isPlaying) {
-      audio.play().catch(() => setIsPlaying(false));
+      // After a gapless swap the element is already playing; don't restart it.
+      if (audio.paused) audio.play().catch(() => setIsPlaying(false));
     } else {
       audio.pause();
     }
   }, [audioUrl, isPlaying, setIsPlaying]);
 
+  // Keep the next ayah buffered while the current one plays.
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-    }
+    nextUrlRef.current = nextUrl;
+    const next = nextRef.current;
+    if (!next || !nextUrl || next.src === nextUrl) return;
+    next.src = nextUrl;
+    next.load();
+  }, [nextUrl]);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+    if (nextRef.current) nextRef.current.volume = volume;
   }, [volume]);
 
   const handleSeek = useCallback((value: number[]) => {
@@ -126,10 +173,11 @@ export function AudioPlayerBar() {
   }, [setVolume]);
 
   const handleClose = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.removeAttribute("src");
-      audioRef.current.load();
+    for (const el of [audioRef.current, nextRef.current]) {
+      if (!el) continue;
+      el.pause();
+      el.removeAttribute("src");
+      el.load();
     }
     reset();
   }, [reset]);
